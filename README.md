@@ -1,12 +1,12 @@
-**Transitive Architecture**
+#**Transitive Architecture**
 
-**for**
+#**for**
 
-**Financial Services**
+#**Financial Services**
 
-Androski Spicer
+Written By: Androski Spicer
 
-March 2021
+Date: March 2021
 
 # **Contents**
 
@@ -157,81 +157,81 @@ patterns.
 
 Illustration of a Boolean map that allows customers to specify where
 their transit gateways are deployed
-
-variable \"deploy_transit_gateway_in_this_aws_region\" {\
-type = map(bool)\
-default = {\
-all_aws_regions = true \# false\
-ohio = false \# true\
-n_virginia = false \# true\
-oregon = false \# true\
-n_california = false \# true\
-canada_east = false \# true\
-ireland = false \# true\
-london = false \# true\
-stockholm = false \# true\
-frankfurt = false \# true\
-paris = false \# true\
-tokyo = false \# true\
-seoul = false \# true\
-sydney = false \# true\
-mumbai = false \# true\
-singapore = false \# true\
-sao-paulo = false \# true\
-}\
+```hcl-terraform
+variable "deploy_transit_gateway_in_this_aws_region" {
+  type = map(bool)
+  default = {
+    all_aws_regions                       = true # false
+    ohio                                  = false # true
+    n_virginia                            = false # true
+    oregon                                = false # true
+    n_california                          = false # true
+    canada_east                           = false # true
+    ireland                               = false # true
+    london                                = false # true
+    stockholm                             = false # true
+    frankfurt                             = false # true
+    paris                                 = false # true
+    tokyo                                 = false # true
+    seoul                                 = false # true
+    sydney                                = false # true
+    mumbai                                = false # true
+    singapore                             = false # true
+    sao-paulo                             = false # true
+  }
 }
-
+```
 Illustration of a Boolean map that allows customers to specify how their
 transit gateways are peered
-
-variable \"transit_gateway_peering\" {\
-type = map(bool)\
-default = {\
-build_complete_mesh = true \# false\
-ohio_n\_virginia = false \# true\
-ohio_canada_east = false \# true\
-ohio_oregon = false \# true\
-ohio_n\_california = false \# true\
-oregon_n\_california = false \# true\
-oregon_canada_east = false \# true\
-oregon_n\_virginia = false \# true\
-oregon_n\_sao_paulo = false \# true\
-oregon_n\_london = false \# true\
-\# n_california_canada_east = false \# true\
-n_california_n\_virginia = false \# true\
-n_virginia_canada_east = false \# true\
-n_virginia_n\_london = false \# true\
-n_virginia_sao_paulo = false \# true\
-london_n\_ireland = false \# true\
-london_n\_paris = false \# true\
-london_n\_frankfurt = false \# true\
-london_n\_milan = false \# true\
-london_n\_stockholm = false \# true\
-ireland_n\_paris = false \# true\
-ireland_n\_frankfurt = false \# true\
-ireland_n\_stockholm = false \# true\
-frankfurt_n\_stockholm = false \# true\
-frankfurt_n\_paris = false \# true\
-stockholm_n\_paris = false \# true\
-mumbai_n\_frankfurt = false \# true\
-mumbai_n\_sao_paulo = false \# true\
-mumbai_n\_tokyo = false \# true\
-mumbai_n\_seoul = false \# true\
-mumbai_n\_singapore = false \# true\
-mumbai_n\_sydney = false \# true\
-singapore_n\_sydney = false \# true\
-singapore_n\_tokyo = false \# true\
-singapore_n\_sao_paulo = false \# true\
-singapore_n\_seoul = false \# true\
-sydney_n\_seoul = false \# true\
-sydney_n\_tokyo = false \# true\
-sydney_n\_sao_paulo = false \# true\
-tokyo_n\_seoul = false \# true\
-tokyo_n\_sao_paulo = false \# true\
-paris_n\_sao_paulo = false \# true\
-}\
+```hcl-terraform
+variable "transit_gateway_peering" {
+  type = map(bool)
+  default = {
+    build_complete_mesh           = true # false
+    ohio_n_virginia               = false # true
+    ohio_canada_east              = false # true
+    ohio_oregon                   = false # true
+    ohio_n_california             = false # true
+    oregon_n_california           = false # true
+    oregon_canada_east            = false # true
+    oregon_n_virginia             = false # true
+    oregon_n_sao_paulo            = false # true
+    oregon_n_london               = false # true
+    # n_california_canada_east      = false # true
+    n_california_n_virginia       = false # true
+    n_virginia_canada_east        = false # true
+    n_virginia_n_london           = false # true
+    n_virginia_sao_paulo          = false # true
+    london_n_ireland              = false # true
+    london_n_paris                = false # true
+    london_n_frankfurt            = false # true
+    london_n_milan                = false # true
+    london_n_stockholm            = false # true
+    ireland_n_paris               = false # true
+    ireland_n_frankfurt           = false # true
+    ireland_n_stockholm           = false # true
+    frankfurt_n_stockholm         = false # true
+    frankfurt_n_paris             = false # true
+    stockholm_n_paris             = false # true
+    mumbai_n_frankfurt            = false # true
+    mumbai_n_sao_paulo            = false # true
+    mumbai_n_tokyo                = false # true
+    mumbai_n_seoul                = false # true
+    mumbai_n_singapore            = false # true
+    mumbai_n_sydney               = false # true
+    singapore_n_sydney            = false # true
+    singapore_n_tokyo             = false # true
+    singapore_n_sao_paulo         = false # true
+    singapore_n_seoul             = false # true
+    sydney_n_seoul                = false # true
+    sydney_n_tokyo                = false # true
+    sydney_n_sao_paulo            = false # true
+    tokyo_n_seoul                 = false # true
+    tokyo_n_sao_paulo             = false # true
+    paris_n_sao_paulo             = false # true
+  }
 }
-
+```
 Illustration of a global transit gateways network all connected using
 transit gateway peering
 
