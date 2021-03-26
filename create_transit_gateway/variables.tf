@@ -85,10 +85,11 @@ variable "ram_share_name" {
 # ---------------------------------------------------------------------------------------------------------------
 
 variable "create_site_to_site_vpn" {
-
   default = true
-    
-
+  validation {
+    condition     = (var.create_site_to_site_vpn == false || var.create_site_to_site_vpn == true)
+    error_message = "Create site to site VPN must be either true or false."
+  }
 }
 
 variable "remote_site_asn" { 
@@ -96,7 +97,7 @@ variable "remote_site_asn" {
     }
 
 variable "remote_site_public_ip"{
-    default = "50.50.50.50"
+    default = "127.0.0.1"
 }    
 
 variable "vpn_type"{
