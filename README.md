@@ -1,8 +1,4 @@
-# **Transitive Architecture**
-
-# **for**
-
-# **Financial Services**
+# **Transitive Architecture for Financial Services**
 
 Written By: Androski Spicer
 
