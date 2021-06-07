@@ -14,6 +14,16 @@ variable "network_manager_name"{
   default = "transit-gateway-network-manager-stack"
 }
 
+# ----------------------------------------------------------------------------------------------------
+# Please update this variable if you have an AWS Network Manager deployed.
+# The full AWS ARN is required for your AWS Network Manager.
+# ----------------------------------------------------------------------------------------------------
+variable "network_manager_id"{
+  default = "aws-network-manager-id"
+}
+# ----------------------------------------------------------------------------------------------------
+
+
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Enables the creation of a specific transit gateway route table  
 #-----------------------------------------------------------------------------------------------------
