@@ -14,6 +14,17 @@ variable "route_tables" {
 }
 
 #-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | ---> Manages VPN Attachment Association. True results in only the packet inspection table being populated with routes.
+#-----------------------------------------------------------------------------------------------------
+variable "centralized_packet_inspection_enabled" {
+  default = false
+  validation {
+    condition     = (var.centralized_packet_inspection_enabled == false || var.centralized_packet_inspection_enabled == true)
+    error_message = "Centralized_packet_inspection_enabled must be either true or false."
+  }
+}
+
+#-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Enables the deployment of a transit gateway in the specified region
 #-----------------------------------------------------------------------------------------------------
 variable "transit_gateway_deployment" {
@@ -82,7 +93,7 @@ variable "ram_share_name" {
 
 #-----------------------------------------------------------------------------------------------------
 # AWS Transit Gateway | ---> AWS Site-to-Site VPN Configuration
-# ---------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------
 
 variable "create_site_to_site_vpn" {
   default = true

@@ -143,32 +143,57 @@ resource "aws_vpn_connection" "aws_site_to_site_vpn_1" {
     # tunnel2_preshared_key = ""
 }
 
-//resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_dev" {
-//  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1.id # aws_ec2_transit_gateway_vpc_attachment.example.id
-//  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table.id
-//}
 
-//resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_uat" {
-//  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1.id # aws_ec2_transit_gateway_vpc_attachment.example.id
-//  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table.id
-//}
+# ---------------------------------------------------------------------------------------------------------------
+# AWS Site-to-Site VPN | Propagation and Association with the North South Route Table
+# ---------------------------------------------------------------------------------------------------------------
 
-//resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_prod" {
-//  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1.id # aws_ec2_transit_gateway_vpc_attachment.example.id
-//  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table.id
-//}
+resource "aws_ec2_transit_gateway_route_table_association" "aws_site_to_site_vpn_1_assoc_with_north_south_rte_table" {
+  count = ( var.create_site_to_site_vpn == true ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.north_south_route_table.id
+}
 
-//resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_north_south" {
-//  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1.id # aws_ec2_transit_gateway_vpc_attachment.example.id
-//  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table.id
-//}
+resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_north_south" {
+  count = ( var.create_site_to_site_vpn == true ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.north_south_route_table.id
+}
 
-//resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_packet_inspection" {
-//  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1.id # aws_ec2_transit_gateway_vpc_attachment.example.id
-//  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table.id
-//}
+# ---------------------------------------------------------------------------------------------------------------
+# AWS Site-to-Site VPN | Propagation to the Packet Inspection Route Table
+# ---------------------------------------------------------------------------------------------------------------
+resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_packet_inspection" {
+  count = ( var.create_site_to_site_vpn == true ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.packet_inspection_route_table[0].id
+}
 
-//resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_shared_services" {
-//  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1.id # aws_ec2_transit_gateway_vpc_attachment.example.id
-//  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table.id
-//}
+# ---------------------------------------------------------------------------------------------------------------
+# AWS Site-to-Site VPN | Propagation without packet inspection enabled on the transit gateway network
+# ---------------------------------------------------------------------------------------------------------------
+
+resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_dev" {
+  count = ( var.create_site_to_site_vpn == true && var.centralized_packet_inspection_enabled==false ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.development_route_table[0].id
+}
+
+resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_uat" {
+  count = ( var.create_site_to_site_vpn == true && var.centralized_packet_inspection_enabled==false ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.uat_route_table[0].id
+}
+
+resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_prod" {
+  count = ( var.create_site_to_site_vpn == true && var.centralized_packet_inspection_enabled==false ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.production_route_table[0].id
+}
+
+resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_shared_services" {
+  count = ( var.create_site_to_site_vpn == true && var.centralized_packet_inspection_enabled==false ? var.how_many_vpn_connections : 0 )
+  transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.shared_services_route_table[0].id
+}
+
