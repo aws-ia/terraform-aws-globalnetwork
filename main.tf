@@ -16,12 +16,7 @@ data "aws_cloudformation_stack" "network-manager-id" {
   name = var.network_manager_name 
 }
 
-# ---------------------------------------------------------------------------------------------------------------
-# Create an AWS Lambda Function | -> Which is triggered on the successful creation of an AWS Transit Gateway.
-# ---------------------------------------------------------------------------------------------------------------
-# locals{
-#   network_manager_id = data.aws_cloudformation_stack.network-manager-id.outputs["GlobalNetworkId"] # "global-network-02c8c08dc5dfcf5d9" 
-# }
+
 resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
   name = "lambda_tgw_globalnetwork_attach_policy"
   role = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach.id
@@ -87,7 +82,9 @@ resource "aws_lambda_function" "lambda_globalnetwork_tgw_attach" {
 
   environment {
     variables = {
+      # GlobalNetworkId = var.network_manager_id
       GlobalNetworkId = data.aws_cloudformation_stack.network-manager-id.outputs["GlobalNetworkId"]
+
     }
   }
 }
