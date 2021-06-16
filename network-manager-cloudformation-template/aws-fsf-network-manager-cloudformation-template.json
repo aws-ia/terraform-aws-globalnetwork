@@ -1,0 +1,20 @@
+{
+    "Resources" : {
+      "myGlobalNetwork": {
+        "Type": "AWS::NetworkManager::GlobalNetwork",
+          "Properties": {
+            "Description": "Global Network",
+            "Tags": [{
+              "Key": "Name",
+              "Value": "aws-fsf-global-network"
+            }]
+          }
+        }
+    },
+    "Outputs" : {
+      "GlobalNetworkId" : {
+        "Description" : "Global Network ID",
+        "Value" : { "Fn::GetAtt" : [ "myGlobalNetwork", "Id" ]}
+      }
+    }
+}

@@ -14,6 +14,16 @@ variable "network_manager_name"{
   default = "transit-gateway-network-manager-stack"
 }
 
+# ----------------------------------------------------------------------------------------------------
+# Please update this variable if you have an AWS Network Manager deployed.
+# The full AWS ARN is required for your AWS Network Manager.
+# ----------------------------------------------------------------------------------------------------
+variable "network_manager_id"{
+  default = "aws-network-manager-id"
+}
+# ----------------------------------------------------------------------------------------------------
+
+
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Enables the creation of a specific transit gateway route table  
 #-----------------------------------------------------------------------------------------------------
@@ -28,6 +38,21 @@ variable "route_tables" {
     uat_route_table               = true 
   }
 }
+
+
+#-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | ---> Manages VPN Attachment Association.
+#  True results in only the packet inspection table being populated with routes.
+#  False results in the addition of on-premises routes added to the dev, uat, prod, shared services, and packet inspection transit gateway route table.
+#-----------------------------------------------------------------------------------------------------
+variable "centralized_packet_inspection_enabled" {
+  default = false
+  validation {
+    condition     = (var.centralized_packet_inspection_enabled == false || var.centralized_packet_inspection_enabled == true)
+    error_message = "Centralized_packet_inspection_enabled must be either true or false."
+  }
+}
+
 
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Enables the deployment of a transit gateway in the specified region

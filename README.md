@@ -142,6 +142,22 @@ configuration for each of the follow:
 
 -   VPC Isolation
 
+
+```
+ Note. 
+```
+
+This document is comprehensive. Therefore, if you are reading this ReadMe file from the terraform-aws-network-deployer GitHub repository then you might want to skip to the following sections:
+- [Shared Services Network](#shared-services-network)
+- [Network Deployer Deployment Guide](#network-deployer-deployment-guide)
+
+That said, if you are reading this documentation from the terraform-aws-globalnetwork GitHub repository then you might want to skip to the below sections:
+- [Technical Overview ](#technical-overview)
+- [The Transitive Network](#the-transitive-network)
+- [The AWS Transit Gateway Repository and modules](#the-aws-transit-gateway-repository-and-modules)
+
+ 
+
 # Assumptions
 
 The solutions outlined in this document is primarily written in
@@ -3551,15 +3567,19 @@ private_hosted_zone_name = ["anaconda.aws-fsf-corp.com"]
 >
 > This concludes the configuration of this deployment option.
 
-### **Deploying the Integrated Spoke VPC and Shared Services VPC with automated association with centralized DNS and centralized VPC Interface Endpoint resources plus automated integration with the global AWS Transit Gateway Solution.** 
+>
 
-### The steps to deploy this option is very similar to those outlined in *[Deploying the Integrated Spoke VPC and Shared Services VPC with automated association with centralized DNS and centralized VPC Interface Endpoint resources](#deploying-the-integrated-spoke-vpc-and-shared-services-vpc-with-automated-association-with-centralized-dns-and-centralized-vpc-interface-endpoint-resources).*
+
+###Deploying the Integrated Spoke VPC and Shared Services VPC with automated association with centralized DNS and centralized VPC Interface Endpoint resources plus automated integration with the global AWS Transit Gateway Solution.** 
+
+\
+The steps to deploy this option is very similar to those outlined in *[Deploying the Integrated Spoke VPC and Shared Services VPC with automated association with centralized DNS and centralized VPC Interface Endpoint resources](#deploying-the-integrated-spoke-vpc-and-shared-services-vpc-with-automated-association-with-centralized-dns-and-centralized-vpc-interface-endpoint-resources).*
 
 There are only two additional steps that are required to enable
 integration with [the global AWS Transit Gateway
 solution](#the-aws-transit-gateway-repository-and-modules).
 
-### That said, please follow all the steps outlined in *[Deploying the Integrated Spoke VPC and Shared Services VPC with automated association with centralized DNS and centralized VPC Interface Endpoint resources](#deploying-the-integrated-spoke-vpc-and-shared-services-vpc-with-automated-association-with-centralized-dns-and-centralized-vpc-interface-endpoint-resources)* but in addition, please perform the following two steps. 
+That said, please follow all the steps outlined in *[Deploying the Integrated Spoke VPC and Shared Services VPC with automated association with centralized DNS and centralized VPC Interface Endpoint resources](#deploying-the-integrated-spoke-vpc-and-shared-services-vpc-with-automated-association-with-centralized-dns-and-centralized-vpc-interface-endpoint-resources)* but in addition, please perform the following two steps. 
 
 **Step 1: Configure Terraform Remote State Data Source Variables**
 
