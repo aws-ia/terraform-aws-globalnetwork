@@ -5,17 +5,6 @@ data "aws_caller_identity" "first" {
   provider = aws.ohio
 }
 
-# module "terraform-aws-fsf-network-manager" {
-#   source                = "./transit-gateway-network-manager"
-#   count                 = var.network_manager_deployment==true ? 1:0
-#   network_manager_name  = var.network_manager_name 
-# }
-
-# data "aws_cloudformation_stack" "network-manager-id" {
-#   depends_on = [ module.terraform-aws-fsf-network-manager ]
-#   name = var.network_manager_name 
-# }
-
 
 resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
   name = "lambda_tgw_globalnetwork_attach_policy"
@@ -168,7 +157,6 @@ data "aws_lambda_invocation" "tgw-globalnetwork-attach-n_california" {
   }
   JSON
 }
-
 
 # OREGON : us-west-2
 //noinspection ConflictingProperties
