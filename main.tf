@@ -96,6 +96,16 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-n_virginia" {
@@ -121,6 +131,16 @@ module "terraform-aws-fsf-tgw-deployment-ohio" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-ohio" {
@@ -146,6 +166,16 @@ module "terraform-aws-fsf-tgw-deployment-n_california" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-n_california" {
@@ -171,6 +201,16 @@ module "terraform-aws-fsf-tgw-deployment-oregon" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-oregon" {
@@ -196,6 +236,16 @@ module "terraform-aws-fsf-tgw-deployment-canada-montreal" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-canada-montreal" {
@@ -221,7 +271,19 @@ module "terraform-aws-fsf-tgw-deployment-mumbai" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
+
+
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-mumbai" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.mumbai == true) ? 1:0)
   function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
@@ -245,6 +307,16 @@ module "terraform-aws-fsf-tgw-deployment-seoul" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-seoul" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.seoul == true) ? 1:0)
@@ -269,7 +341,19 @@ module "terraform-aws-fsf-tgw-deployment-singapore" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
+
+
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-singapore" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.singapore == true) ? 1:0)
   function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
@@ -292,6 +376,16 @@ module "terraform-aws-fsf-tgw-deployment-sydney" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-sydney" {
@@ -315,6 +409,16 @@ module "terraform-aws-fsf-tgw-deployment-tokyo" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-tokyo" {
@@ -338,6 +442,16 @@ module "terraform-aws-fsf-tgw-deployment-frankfurt" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-frankfurt" {
@@ -361,6 +475,16 @@ module "terraform-aws-fsf-tgw-deployment-ireland" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-ireland" {
@@ -384,6 +508,16 @@ module "terraform-aws-fsf-tgw-deployment-london" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-london" {
@@ -407,6 +541,16 @@ module "terraform-aws-fsf-tgw-deployment-paris" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-paris" {
@@ -430,6 +574,16 @@ module "terraform-aws-fsf-tgw-deployment-stockholm" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-stockholm" {
@@ -453,6 +607,16 @@ module "terraform-aws-fsf-tgw-deployment-sao-paulo" {
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -465,6 +629,7 @@ data "aws_lambda_invocation" "tgw-globalnetwork-attach-sao-paulo" {
   }
   JSON
 }
+
 
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> PEERS TRANSIT GATEWAYS  
@@ -489,6 +654,15 @@ module "terraform-aws-fsf-tgw-peering-regions-ohio-n-virginia" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-ohio[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -523,6 +697,15 @@ module "terraform-aws-fsf-tgw-peering-regions-ohio-n-canada_east" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-ohio[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -552,6 +735,16 @@ module "terraform-aws-fsf-tgw-peering-regions-n_virginia-n-canada_east" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-canada-montreal[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -583,6 +776,16 @@ module "terraform-aws-fsf-tgw-peering-regions-oregon-n-california" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-n_california[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 
 }
 
@@ -616,6 +819,16 @@ module "terraform-aws-fsf-tgw-peering-regions-oregon-n-ohio" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
+
 }
 
 
@@ -645,6 +858,16 @@ module "terraform-aws-fsf-tgw-peering-regions-oregon-n-n_virginia" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 
 }
 
@@ -678,6 +901,16 @@ module "terraform-aws-fsf-tgw-peering-regions-oregon-n-canada-east" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
+
 }
 
 
@@ -710,6 +943,16 @@ module "terraform-aws-fsf-tgw-peering-regions-n_california-n-ohio" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-n_california[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
+
 }
 
 
@@ -739,6 +982,15 @@ module "terraform-aws-fsf-tgw-peering-regions-n_california-n-n_virginia" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-n_california[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -773,6 +1025,15 @@ module "terraform-aws-fsf-tgw-peering-regions-n_virginia-n-sao-paulo" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -803,6 +1064,16 @@ module "terraform-aws-fsf-tgw-peering-regions-oregon-n-sao-paulo" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-sao-paulo[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 
 }
 
@@ -836,6 +1107,15 @@ module "terraform-aws-fsf-tgw-peering-regions-n_virginia-n-london" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -866,6 +1146,16 @@ module "terraform-aws-fsf-tgw-peering-regions-oregon-n-london" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-london[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 
 }
 
@@ -901,6 +1191,15 @@ module "terraform-aws-fsf-tgw-peering-regions-london-n-ireland" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-london[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -930,6 +1229,15 @@ module "terraform-aws-fsf-tgw-peering-regions-london-n-paris" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-paris[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-london[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -961,6 +1269,15 @@ module "terraform-aws-fsf-tgw-peering-regions-london-n-frankfurt" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-london[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -990,6 +1307,15 @@ module "terraform-aws-fsf-tgw-peering-regions-london-n-stockholm" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-stockholm[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-london[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1021,6 +1347,15 @@ module "terraform-aws-fsf-tgw-peering-regions-ireland-n-paris" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-ireland[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1050,6 +1385,15 @@ module "terraform-aws-fsf-tgw-peering-regions-ireland-n-frankfurt" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-frankfurt[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-ireland[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1081,6 +1425,15 @@ module "terraform-aws-fsf-tgw-peering-regions-ireland-n-stockholm" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-ireland[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 resource "aws_ec2_transit_gateway_peering_attachment_accepter" "transit_gateway_peering_acceptance-ireland-n-stockholm" {
@@ -1109,6 +1462,15 @@ module "terraform-aws-fsf-tgw-peering-regions-frankfurt-n-stockholm" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-stockholm[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-frankfurt[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1140,6 +1502,15 @@ module "terraform-aws-fsf-tgw-peering-regions-frankfurt-n-paris" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-frankfurt[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1169,6 +1540,15 @@ module "terraform-aws-fsf-tgw-peering-regions-stockholm-n-paris" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-paris[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-stockholm[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1202,6 +1582,15 @@ module "terraform-aws-fsf-tgw-peering-regions-mumbai-n-frankfurt" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1232,6 +1621,15 @@ module "terraform-aws-fsf-tgw-peering-regions-mumbai-n-sao-paulo" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1261,6 +1659,15 @@ module "terraform-aws-fsf-tgw-peering-regions-mumbai-n-tokyo" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-tokyo[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1293,6 +1700,15 @@ module "terraform-aws-fsf-tgw-peering-regions-mumbai-n-seoul" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1323,6 +1739,15 @@ module "terraform-aws-fsf-tgw-peering-regions-mumbai-n-singapore" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1352,6 +1777,15 @@ module "terraform-aws-fsf-tgw-peering-regions-mumbai-n-sydney" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-sydney[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1384,6 +1818,15 @@ module "terraform-aws-fsf-tgw-peering-regions-singapore-n-sydney" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-singapore[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1415,6 +1858,15 @@ module "terraform-aws-fsf-tgw-peering-regions-singapore-n-tokyo" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-singapore[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1445,6 +1897,15 @@ module "terraform-aws-fsf-tgw-peering-regions-singapore-n-seoul" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-seoul[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-singapore[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1480,6 +1941,15 @@ module "terraform-aws-fsf-tgw-peering-regions-sydney-n-tokyo" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-sydney[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1509,6 +1979,15 @@ module "terraform-aws-fsf-tgw-peering-regions-sydney-n-seoul" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-seoul[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-sydney[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1541,6 +2020,15 @@ module "terraform-aws-fsf-tgw-peering-regions-tokyo-n-seoul" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-tokyo[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1570,6 +2058,15 @@ module "terraform-aws-fsf-tgw-peering-regions-tokyo-n-sao-paulo" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-sao-paulo[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-tokyo[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 
@@ -1601,6 +2098,15 @@ module "terraform-aws-fsf-tgw-peering-regions-sydney-n-sao-paulo" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-sydney[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1631,6 +2137,15 @@ module "terraform-aws-fsf-tgw-peering-regions-singapore-n-sao-paulo" {
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-singapore[0].transit_gateway_id
 
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
+
 }
 
 
@@ -1659,6 +2174,15 @@ module "terraform-aws-fsf-tgw-peering-regions-paris-n-sao-paulo" {
   peer_transit_gateway_id = module.terraform-aws-fsf-tgw-deployment-sao-paulo[0].transit_gateway_id
   # transit gateway requesting to be peered
   transit_gateway_id      = module.terraform-aws-fsf-tgw-deployment-paris[0].transit_gateway_id
+
+  Application_ID      = var.Application_ID
+  Application_Name    = var.Application_Name
+  Business_Unit       = var.Business_Unit
+  Environment_Type    = var.Environment_Type
+  Supported_Networks  = var.Supported_Networks
+  CostCenterCode      = var.CostCenterCode
+  CreatedBy           = var.CreatedBy
+  Manager             = var.Manager
 
 }
 

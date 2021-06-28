@@ -217,8 +217,7 @@ variable "ram_share_name" {
 variable "tgw_vpn" {
   type = map(bool)
   default = { 
-    create_site_to_site_vpn  = true 
-    
+    create_site_to_site_vpn  = true
   }
 }
 
@@ -227,7 +226,7 @@ variable "remote_site_asn" {
     }
 
 variable "remote_site_public_ip"{
-    default = "127.0.0.0"
+    default = "127.0.0.1"
 }    
 
 variable "vpn_type"{
@@ -297,3 +296,6 @@ variable "Manager" {
   type = string
   default = "KenJackson"
 }
+
+
+
