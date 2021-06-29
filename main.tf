@@ -10,8 +10,9 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
   name = "lambda_tgw_globalnetwork_attach_policy"
   role = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach.id
 
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
+  # Terraform "jsonencode" function converts a Terraform expression result to valid JSON syntax.
+  # IAM Policy Statement
+  # ---------------------------------------------------------------------------------------------------------------
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -94,7 +95,7 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
 
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_virginia
   remote_site_public_ip = var.remote_site_public_ip.n_virginia # var.remote_site_public_ip.hq
-  remote_site_asn = var.remote_site_asn.n_virginia
+  remote_site_asn = var.remote_site_asn.n_virginia             # var.remote_site_asn.hq
   amazon_side_asn = "64512" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
 
   transit_gateway_deployment = false

@@ -1,15 +1,19 @@
-
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Create Network Manager
 #-----------------------------------------------------------------------------------------------------
+# This variables tells the solution if an AWS Network Manager exist (true) or not (false).
+#-----------------------------------------------------------------------------------------------------
 variable "network_manager_deployment" {
-  default = true
+  default = false
   validation {
     condition     = (var.network_manager_deployment == false || var.network_manager_deployment == true)
     error_message = "AWS Network Manager deployment must be either true or false."
   }
 }
 
+#-----------------------------------------------------------------------------------------------------
+# This variables holds the name an AWS Network Manager
+#-----------------------------------------------------------------------------------------------------
 variable "network_manager_name"{
   default = "transit-gateway-network-manager-stack"
 }
@@ -21,7 +25,6 @@ variable "network_manager_name"{
 variable "network_manager_id"{
   default = "aws-network-manager-id"
 }
-# ----------------------------------------------------------------------------------------------------
 
 
 #-----------------------------------------------------------------------------------------------------
@@ -37,22 +40,16 @@ variable "centralized_packet_inspection_enabled" {
   }
 }
 
-
 #-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | ---> Enables the deployment of a transit gateway in the specified region
+#  AWS Transit Gateway | ---> AWS Site-to-Site
 #-----------------------------------------------------------------------------------------------------
-variable "transit_gateway_deployment" {
-  default = true
-  validation {
-    condition     = (var.transit_gateway_deployment == false || var.transit_gateway_deployment == true)
-    error_message = "Transit Gateway deployment must be either true or false."
-  }
-}
-
+# This variables map tells the solution if it should create an AWS Site-to-Site VPN and which region
+# Simply set true for the region in which you would like to deploy
+#-----------------------------------------------------------------------------------------------------
 variable "create_site_to_site_vpn" {
   type = map(bool)
   default = {
-    ohio          = true
+    ohio          = false
     n_virginia    = false
     oregon        = false
     n_california  = false
@@ -71,11 +68,18 @@ variable "create_site_to_site_vpn" {
   }
 }
 
-
+#-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | --->  Create Transit Gateway
+#-----------------------------------------------------------------------------------------------------
+# This variable controls the creation of a transit gateway in the region to the left.
+# Simply set true if you want to create or false if you dont want to create.
+# The option "all_aws_region" allows you to create a transit gateway in all AWS Region.
+# There's no need to specify true for individual regions if "all_aws_region" is set to true.
+#-----------------------------------------------------------------------------------------------------
 variable "deploy_transit_gateway_in_this_aws_region" {
   type = map(bool)
   default = {
-    all_aws_regions                       = true # false
+    all_aws_regions                       = false # true
     ohio                                  = false # true
     n_virginia                            = false # true
     oregon                                = false # true
@@ -95,11 +99,17 @@ variable "deploy_transit_gateway_in_this_aws_region" {
   }
 }
 
-
+#-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | --->  Create Transit Gateway Peering Connection
+#-----------------------------------------------------------------------------------------------------
+# This variable controls the creation of a transit gateway peering between transit gateways deployed in different AWS Regions.
+# The option "build_complete_mesh" complements the "all_aws_region" in the variable "deploy_transit_gateway_in_this_aws_region"
+# Set "build_complete_mesh" to true if you have set "all_aws_region" to true AND you would like to build a completely globally meshed transit gateway network.
+#-----------------------------------------------------------------------------------------------------
 variable "transit_gateway_peering" {
   type = map(bool)
   default = {
-    build_complete_mesh           = true # false
+    build_complete_mesh           = false # true
     ohio_n_virginia               = false # true
     ohio_canada_east              = false # true
     ohio_oregon                   = false # true

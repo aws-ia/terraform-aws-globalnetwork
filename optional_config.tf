@@ -15,6 +15,19 @@
 //}
 
 
+//#-----------------------------------------------------------------------------------------------------
+//#  AWS Transit Gateway | ---> Enables the deployment of a transit gateway in the specified region
+//#-----------------------------------------------------------------------------------------------------
+//variable "transit_gateway_deployment" {
+//  default = true
+//  validation {
+//    condition     = (var.transit_gateway_deployment == false || var.transit_gateway_deployment == true)
+//    error_message = "Transit Gateway deployment must be either true or false."
+//  }
+//}
+//
+
+
 #-----------------------------------------------------------------------------------------------------
 # AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
 #-----------------------------------------------------------------------------------------------------
