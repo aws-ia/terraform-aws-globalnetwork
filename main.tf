@@ -91,8 +91,12 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
   providers = {
     aws = aws.n_virginia
   }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_virginia
+  remote_site_public_ip = var.remote_site_public_ip.n_virginia # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.n_virginia
   amazon_side_asn = "64512" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -127,7 +131,10 @@ module "terraform-aws-fsf-tgw-deployment-ohio" {
     aws = aws.ohio
   }
   create_site_to_site_vpn = var.create_site_to_site_vpn.ohio
+  remote_site_public_ip = var.remote_site_public_ip.ohio # var.remote_site_public_ip.hq
   amazon_side_asn = "64513" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  remote_site_asn = var.remote_site_asn.ohio
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -161,7 +168,11 @@ module "terraform-aws-fsf-tgw-deployment-n_california" {
   providers = {
     aws = aws.n_california
   }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_california
+  remote_site_public_ip = var.remote_site_public_ip.n_california # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.n_california
+
   amazon_side_asn = "64514" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
@@ -196,8 +207,12 @@ module "terraform-aws-fsf-tgw-deployment-oregon" {
   providers = {
     aws = aws.oregon
   }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.oregon
+  remote_site_public_ip = var.remote_site_public_ip.oregon # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.oregon
   amazon_side_asn = "64515" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -231,8 +246,12 @@ module "terraform-aws-fsf-tgw-deployment-canada-montreal" {
   providers = {
     aws = aws.canada_east
   }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.canada_east
+  remote_site_public_ip = var.remote_site_public_ip.canada_east # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.canada_east
   amazon_side_asn = "64516" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -266,8 +285,12 @@ module "terraform-aws-fsf-tgw-deployment-mumbai" {
   providers = {
     aws = aws.mumbai
   }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.mumbai
+  remote_site_public_ip = var.remote_site_public_ip.mumbai  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.mumbai
   amazon_side_asn = "64519" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -302,8 +325,12 @@ module "terraform-aws-fsf-tgw-deployment-seoul" {
   providers = {
     aws = aws.seoul
   }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.seoul
+  remote_site_public_ip = var.remote_site_public_ip.seoul  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.seoul
   amazon_side_asn = "64521" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -333,11 +360,13 @@ data "aws_lambda_invocation" "tgw-globalnetwork-attach-seoul" {
 module "terraform-aws-fsf-tgw-deployment-singapore" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.singapore == true) ? 1:0)
-  providers = {
-    aws = aws.singapore
-  }
+  providers = { aws = aws.singapore }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.singapore
+  remote_site_public_ip = var.remote_site_public_ip.singapore  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.singapore
   amazon_side_asn = "64522" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -371,8 +400,12 @@ module "terraform-aws-fsf-tgw-deployment-sydney" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.sydney == true) ? 1:0)
   providers = { aws = aws.sydney }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.sydney
+  remote_site_public_ip = var.remote_site_public_ip.sydney  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.sydney
   amazon_side_asn = "64523" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -404,8 +437,12 @@ module "terraform-aws-fsf-tgw-deployment-tokyo" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.tokyo == true) ? 1:0)
   providers = { aws = aws.tokyo }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.tokyo
+  remote_site_public_ip = var.remote_site_public_ip.tokyo  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.tokyo
   amazon_side_asn = "64524" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -437,8 +474,12 @@ module "terraform-aws-fsf-tgw-deployment-frankfurt" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.frankfurt == true) ? 1:0)
   providers = { aws = aws.frankfurt }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.frankfurt
+  remote_site_public_ip = var.remote_site_public_ip.frankfurt  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.frankfurt
   amazon_side_asn = "64525" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -470,8 +511,12 @@ module "terraform-aws-fsf-tgw-deployment-ireland" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.ireland == true) ? 1:0)
   providers = { aws = aws.ireland }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.ireland
+  remote_site_public_ip = var.remote_site_public_ip.ireland  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.ireland
   amazon_side_asn = "64526" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -503,8 +548,12 @@ module "terraform-aws-fsf-tgw-deployment-london" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.london == true) ? 1:0)
   providers = { aws = aws.london }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.london
+  remote_site_public_ip = var.remote_site_public_ip.london  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.london
   amazon_side_asn = "64527" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -536,8 +585,12 @@ module "terraform-aws-fsf-tgw-deployment-paris" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.paris == true) ? 1:0)
   providers = { aws = aws.paris }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.paris
+  remote_site_public_ip = var.remote_site_public_ip.paris  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.paris
   amazon_side_asn = "64528" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -569,8 +622,12 @@ module "terraform-aws-fsf-tgw-deployment-stockholm" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.stockholm == true) ? 1:0)
   providers = { aws = aws.stockholm }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.stockholm
+  remote_site_public_ip = var.remote_site_public_ip.stockholm  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.stockholm
   amazon_side_asn = "64530" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
@@ -602,8 +659,12 @@ module "terraform-aws-fsf-tgw-deployment-sao-paulo" {
   source                = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.sao-paulo == true) ? 1:0)
   providers = { aws = aws.sao_paulo }
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.sao_paulo
+  remote_site_public_ip = var.remote_site_public_ip.sao-paulo  # var.remote_site_public_ip.hq
+  remote_site_asn = var.remote_site_asn.sao-paulo
   amazon_side_asn = "64532" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+
   transit_gateway_deployment = false
   how_many_vpn_connections = var.how_many_vpn_connections
   centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled

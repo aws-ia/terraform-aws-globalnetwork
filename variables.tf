@@ -25,22 +25,6 @@ variable "network_manager_id"{
 
 
 #-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | ---> Enables the creation of a specific transit gateway route table  
-#-----------------------------------------------------------------------------------------------------
-variable "route_tables" {
-  type = map(bool)
-  default = {
-    shared_services_route_table   = true
-    north_south_route_table       = true
-    packet_inspection_route_table = true
-    development_route_table       = true
-    production_route_table        = true 
-    uat_route_table               = true 
-  }
-}
-
-
-#-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Manages VPN Attachment Association.
 #  True results in only the packet inspection table being populated with routes.
 #  False results in the addition of on-premises routes added to the dev, uat, prod, shared services, and packet inspection transit gateway route table.
@@ -111,6 +95,7 @@ variable "deploy_transit_gateway_in_this_aws_region" {
   }
 }
 
+
 variable "transit_gateway_peering" {
   type = map(bool)
   default = {
@@ -159,53 +144,10 @@ variable "transit_gateway_peering" {
   }
 }
 
+
 #-----------------------------------------------------------------------------------------------------
 # AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
 #-----------------------------------------------------------------------------------------------------
-variable amazon_side_asn{
-    default="64512"
-}
-
-variable "vpn_ecmp_support" {
-  default = "enable"
-  validation {
-    condition     = (var.vpn_ecmp_support == "enable")
-    error_message = "External Principals should not be allowed unless in the case of a merger."
-  }
-}
-
-variable "dns_support" {
-  default = "disable"
-}
-
-variable "default_route_table_propagation" {
-  default = "disable"
-  validation {
-    condition     = (var.default_route_table_propagation == "disable")
-    error_message = "Transit Gateway Attachments routes must not be automatically propagated to the default route table."
-  }
-}
-
-variable "default_route_table_association" {
-  default = "disable"
-  validation {
-    condition     = (var.default_route_table_association == "disable")
-    error_message = "Attachments must not be automatically associated with the TGW Default route table."
-  }
-}
-
-variable "auto_accept_shared_attachments" {
-  default = "enable"
-}
-
-variable "allow_external_principals" {
-  default = false
-  validation {
-    condition     = (var.allow_external_principals == false)
-    error_message = "External Principals should not be allowed unless in the case of a merger."
-  }
-}
-
 variable "ram_share_name" {
   default = "shared_networking_resources"
 }
@@ -221,17 +163,54 @@ variable "tgw_vpn" {
   }
 }
 
-variable "remote_site_asn" { 
-    default = 65000
+
+variable "remote_site_asn" {
+  type = map(number)
+    default = {
+      hq                                    = 65000
+      ohio                                  = 65000
+      n_virginia                            = 65000
+      oregon                                = 65000
+      n_california                          = 65000
+      canada_east                           = 65000
+      ireland                               = 65000
+      london                                = 65000
+      stockholm                             = 65000
+      frankfurt                             = 65000
+      paris                                 = 65000
+      tokyo                                 = 65000
+      seoul                                 = 65000
+      sydney                                = 65000
+      mumbai                                = 65000
+      singapore                             = 65000
+      sao-paulo                             = 65000
     }
+}
+
 
 variable "remote_site_public_ip"{
-    default = "127.0.0.1"
-}    
-
-variable "vpn_type"{
-    default = "ipsec.1"
+    type = map(string)
+    default = {
+      hq                                    = "127.0.0.1"
+      ohio                                  = "127.0.0.1"
+      n_virginia                            = "127.0.0.1"
+      oregon                                = "127.0.0.1"
+      n_california                          = "127.0.0.1"
+      canada_east                           = "127.0.0.1"
+      ireland                               = "127.0.0.1"
+      london                                = "127.0.0.1"
+      stockholm                             = "127.0.0.1"
+      frankfurt                             = "127.0.0.1"
+      paris                                 = "127.0.0.1"
+      tokyo                                 = "127.0.0.1"
+      seoul                                 = "127.0.0.1"
+      sydney                                = "127.0.0.1"
+      mumbai                                = "127.0.0.1"
+      singapore                             = "127.0.0.1"
+      sao-paulo                             = "127.0.0.1"
+  }
 }
+
 
 variable "how_many_vpn_connections"{
     default = 1
@@ -296,6 +275,4 @@ variable "Manager" {
   type = string
   default = "KenJackson"
 }
-
-
 
