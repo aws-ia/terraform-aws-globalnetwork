@@ -163,17 +163,6 @@ variable "ram_share_name" {
 }
 
 
-#-----------------------------------------------------------------------------------------------------
-# AWS Transit Gateway | ---> AWS Site-to-Site VPN Configuration
-# -----------------------------------------------------------------------------------------------------
-variable "tgw_vpn" {
-  type = map(bool)
-  default = { 
-    create_site_to_site_vpn  = true
-  }
-}
-
-
 variable "remote_site_asn" {
   type = map(number)
     default = {
@@ -227,9 +216,10 @@ variable "how_many_vpn_connections"{
 }
 
 #-----------------------------------------------------------------------------------------------------
+# TAGS | -------> Exposes a uniform system of tagging.
+#-----------------------------------------------------------------------------------------------------
 # Variables that makes up the AWS Tags assigned to the VPC on creation.
-# ---------------------------------------------------------------------------------------------------------------
-
+# ----------------------------------------------------------------------------------------------------
 variable "Application_ID" {
   description = "The Application ID of the application that will be hosted inside this Amazon VPC."
   type = string
