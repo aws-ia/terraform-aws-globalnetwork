@@ -89,7 +89,8 @@ Today, Terraform does not expose a resource for the creation an AWS Network Mana
 This solution will be modified to include this terraform resource once it is available.  
 
 In the mean, if you chose to enable network manager integration, you will have to supply the network manager id and populate it to the variable "network_manager_id" which can be found in the ./variables.tf file. 
-You can provide an ID from a network manager that you already have or launch a new network manager using the CFN stack available in this solution then supply the network manager ID.
+You can provide an ID from a network manager that you already have or launch a new network manager using the CFN stack available in this solution.
+
 
 # Assumptions
 
@@ -973,7 +974,7 @@ variable "deploy_transit_gateway_in_this_aws_region" {
     type = map(bool)
     default = {
         all_aws_regions         = false # true
-        ohio                    = true # true
+        ohio                    = true  # false
         n_virginia              = false # true
         oregon                  = false # true
         n_california            = false # true
@@ -1041,7 +1042,7 @@ a.  Search for the variable *remote_site-public_ip* and add the public
     type = map(string)
     default = {
         hq                  = "127.0.0.1"
-        ohio                = "50.50.50.50"
+        ohio                = "127.0.0.1"
         n_virginia          = "127.0.0.1"
         oregon              = "127.0.0.1"
         n_california        = "127.0.0.1"

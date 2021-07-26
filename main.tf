@@ -26,7 +26,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
         "Effect": "Allow"
       },
       {
-        "Action": "*",
+        "Action": ["networkmanager:*", "ec2:*"],
         "Resource": "*",
         "Effect": "Allow"
       }
