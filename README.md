@@ -27,6 +27,8 @@ Last Updated: May 2021
 
 12. [The AWS Transit Gateway Repository and modules 21](#the-aws-transit-gateway-repository-and-modules)
 
+12. [Implementation Guide ](#implementation-guide)
+
 21. [Conclusion 82](#conclusion)
 
 # About This Document
@@ -1373,26 +1375,13 @@ Lastly, please configure all the variables located in *[Tags]{.ul}*
 segment of the variables.tf file. They will be used for tagging
 throughout the solution.
 
-# **Conclusion** 
-
-In conclusion, this solution was designed and built to reduce the time
-it takes to go from decision to deploying a network on AWS.
-
-A customer can choose to deploy a global network or a network that is
-specific to a single AWS Region. The network you deploy is directly
-related to the knobs and switches that you have turned within the
-solution.
-
-Please have fun with this solution and feel free to provide feedback
-where necessary.
-
 
 # **Conclusion** 
 
-In conclusion, this solution was designed and built to reduce the time
-it takes to go from decision to deploying a network on AWS.
+In conclusion, this solution is designed and built to reduce the time
+it takes to go from decision to deploy a globally meshed transit gateway network on AWS.
 
-A customer can choose to deploy a global network or a network that is
+A customer can choose to deploy a globally meshed transit gateway network or a single transit gateway that is
 specific to a single AWS Region. The network you deploy is directly
 related to the knobs and switches that you have turned within the
 solution.
