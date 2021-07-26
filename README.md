@@ -36,8 +36,24 @@ These configurations range from the implementation of a single transit gateway t
 This solution provides customers with a set of opinionated Terraform modules that deploys and automates the
 configuration of one or more AWS Transit Gateway(s). 
 
-Within the variables.tf file is a set of boolean maps that customers tune to deploy several types of transit gateway configuration. 
-These controls makes it easy for a customer to go from no transit gateway to a globally meshed network of AWS Transit Gateways with IPSec VPNs termination. 
+Today, this solution supports three key architecture types;
+
+-   **A Single Transit GatewayLayer Three/Transitive Network(s)**
+
+    -   This option deploys a single transit gateway and shares it throughout the customer AWS Organization
+
+-   **Multiple Transit Gateways Deployed Across Multiple AWS Regions**
+
+    -   This option creates an AWS Transit Gateway in multiple AWS Regions
+    -   Customers can enable a transit gateway peer between both AWS Transit Gateways
+
+-   **Globally Meshed Network of AWS Transit Gateways**
+
+    -   This deployment option deploys an AWS Transit Gateway in each AWS Region and establishes a
+        transit gateway peering connection between all transit gateways deployed by this solution. 
+
+Within the variables.tf file is a set of boolean maps that customers can tune to deploy any of the above configuration type.
+These controls make it easy for a customer to go from no transit gateway to a globally meshed network of AWS Transit Gateways with IPSec VPN termination and automatic VPN attachment route propagation. 
 
 The solution presented is highly opinionated. Within this opinion is room for a customer to achieve the desired configuration as along as the feature is available within this solution.
 That said, with this solution comes with a set of custom items. They are as followed:
@@ -65,29 +81,13 @@ Each AWS Transit Gateway deployed by this solution comes with the following
     - If packet inspection is enabled on this solution, then the on-premises routes are automatically propagated
       to the packet inspection route table.
     
-Today, this solution supports three key architecture types;
-
--   **A Single Transit GatewayLayer Three/Transitive Network(s)**
-
-    -   This option deploys a single transit gateway and shares it throughout the customer AWS Organization
-
--   **Multiple Transit Gateways Deployed Across Multiple AWS Regions**
-
-    -   This option creates an AWS Transit Gateway in multiple AWS Regions
-    -   Customers can enable a transit gateway peer between both AWS Transit Gateways
-
--   **Globally Meshed Network of AWS Transit Gateways**
-
-    -   This deployment option deploys an AWS Transit Gateway in each AWS Region and establishes a
-        transit gateway peering connection between all transit gateways deployed by this solution. 
-
-This solution contains an AWS CloudFormation (CFN) Stack for launching AWS Network Manager. 
+This solution contains an AWS CloudFormation (CFN) Stack for launching an AWS Network Manager. 
 The CFN stack can be found in the folder labeled "network-manager-cloudformation-template".
-Today, Terraform does not expose a resource for creation an AWS Network Manager. They are, however, working on a resource. 
+Today, Terraform does not expose a resource for the creation an AWS Network Manager. They are, however, working on creating a resource. 
 This solution will be modified to include this terraform resource once it is available.  
 
-In the mean, if you chose to enable network manager integration, you will have to supply the network manager id. 
-You can use one that you alrerady have or launch a new network manager using the CFN stack available in this solution then supply the network manager ID.
+In the mean, if you chose to enable network manager integration, you will have to supply the network manager id and populate it to the variable "network_manager_id" which can be found in the ./variables.tf file. 
+You can provide an ID from a network manager that you already have or launch a new network manager using the CFN stack available in this solution then supply the network manager ID.
 
 # Assumptions
 
