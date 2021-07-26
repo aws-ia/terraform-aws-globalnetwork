@@ -38,7 +38,7 @@ configuration of one or more AWS Transit Gateway(s).
 
 Today, this solution supports three key architecture types;
 
--   **A Single Transit GatewayLayer Three/Transitive Network(s)**
+-   **A Single Transit Gateway with/without AWS Site to Site VPN(s)**
 
     -   This option deploys a single transit gateway and shares it throughout the customer AWS Organization
 
@@ -66,7 +66,9 @@ Each AWS Transit Gateway deployed by this solution comes with the following
     - Production (PROD) Route Table 
     - Shared Services Route Table 
     - Packet Inspection Route Table 
-    - On-premises Route Table 
+    - On-premises Route Table
+    
+    These route tables play into a broader solution that allows customers to deploy shared services and spoke VPCs that integrate seamlessly with the transit gateways deployed using this solution.
 
 - **ECMP is enabled by default and is not optional**
 - **Route Propagation & Route Table Association with the Default Transit Gateway Route Table is disabled by default**
