@@ -1,126 +1,93 @@
-# Transitive Architecture for Financial Services
-
+# An Opinionated Transitive Solution for AWS Customers
 ```hcl-terraform 
 
 Solution Created By:      Androski Spicer
 
 Documentation Written By: Androski Spicer
 
-Last Updated: May 2021
+Last Updated: July 2021
 
 ```
-
-#
-
 
 # Table of Contents
 
-1. [About This Document 4](#about-this-document)
+1. [About This Document](#about-this-document)
 
-2. [Overview 4](#overview)
+2. [Overview](#overview)
 
-3. [Assumptions 6](#assumptions)
+3. [Assumptions](#assumptions)
 
-4. [Technical Overview 7](#technical-overview)
+4. [The Transitive Network](#the-transitive-network)
 
-5. [The Transitive Network 7](#the-transitive-network)
+5. [The AWS Transit Gateway Repository and modules](#the-aws-transit-gateway-repository-and-modules)
 
-12. [The AWS Transit Gateway Repository and modules 21](#the-aws-transit-gateway-repository-and-modules)
+6. [Implementation Guide ](#implementation-guide)
 
-12. [Implementation Guide ](#implementation-guide)
-
-21. [Conclusion 82](#conclusion)
+7. [Conclusion](#conclusion)
 
 # About This Document
 
-The purpose of this document is to discuss a prescriptive solution that
-deploys a global network architecture in accordance with AWS best
-practices.
+This document serves to introduce and discuss an opinionated transitive solution that enables customers to deploy multiple configurations of AWS Transit Gateways. 
+These configurations range from the implementation of a single transit gateway to a globally meshed network of transit gateways that are managed by AWS Network Manager. 
+
 
 # Overview
 
-The solution discussed in this document provides customers with a set of
-opinionated Terraform modules that deploys and automates the
-configuration of a global network on AWS.
+This solution provides customers with a set of opinionated Terraform modules that deploys and automates the
+configuration of one or more AWS Transit Gateway(s). 
 
-Today, this solution builds three key network types;
+Within the variables.tf file is a set of boolean maps that customers tune to deploy several types of transit gateway configuration. 
+These controls makes it easy for a customer to go from no transit gateway to a globally meshed network of AWS Transit Gateways with IPSec VPNs termination. 
 
--   **Layer Three/Transitive Network(s)**
+The solution presented is highly opinionated. Within this opinion is room for a customer to achieve the desired configuration as along as the feature is available within this solution.
+That said, with this solution comes with a set of custom items. They are as followed:
 
-    -   Customers have control over the number of transit gateways that
-        are created and where they are created.
+Each AWS Transit Gateway deployed by this solution comes with the following
 
--   **Shared Services Network(s)**
+- **Six AWS Transit Gateway Route Tables (These are not optional)**
+    - Development (DEV) Route Table 
+    - User Acceptance Testing (UAT) Route Table 
+    - Production (PROD) Route Table 
+    - Shared Services Route Table 
+    - Packet Inspection Route Table 
+    - On-premises Route Table 
 
-    -   The shared services network should be used to host those
-        services that are fundamental to the successful operation of the
-        entire network.
+- **ECMP is enabled by default and is not optional**
+- **Route Propagation & Route Table Association with the Default Transit Gateway Route Table is disabled by default**
+    - All propagation and assocation is controlled by
+        - Boolean maps outlined in this document and present within the Terraform modules 
+        - AWS Tag data
+- **AWS Site-to-Site VPN(s)**
+    - This is an optional feature; customers can enable or disable this feature
+    - Once enbaled, a customer can choose to create N number of AWS Site to Site VPNs to the same customer gateway
+      then use ECMP to load balance across them. 
+    - By default, the VPN Attachment(s) routes are automatically propagated to the shared services, dev, prod and uat transit gateway route table if packet inspection is not enabled
+    - If packet inspection is enabled on this solution, then the on-premises routes are automatically propagated
+      to the packet inspection route table.
+    
+Today, this solution supports three key architecture types;
 
-    -   Today, this network comes with a centralized AWS VPC Interface
-        endpoint solution and a centralized DNS solution.
+-   **A Single Transit GatewayLayer Three/Transitive Network(s)**
 
--   **Spoke Networks**
+    -   This option deploys a single transit gateway and shares it throughout the customer AWS Organization
 
-    -   These networks host customers application teams workloads and
-        are seamlessly integrated with each of the networks outlined
-        above.
+-   **Multiple Transit Gateways Deployed Across Multiple AWS Regions**
 
-A fourth network type will be introduced in the next iteration of this
-solution; that is, the security network that gives customers the option
-of leveraging key AWS security services like AWS Firewall Manager and
-AWS Network Firewall or use third party tools like Palo Alto and
-Fortinet.
+    -   This option creates an AWS Transit Gateway in multiple AWS Regions
+    -   Customers can enable a transit gateway peer between both AWS Transit Gateways
 
-This solution is designed to answer four main category of networking
-questions that customers generally have when approaching the topic of
-networking on AWS.
+-   **Globally Meshed Network of AWS Transit Gateways**
 
-These are:
+    -   This deployment option deploys an AWS Transit Gateway in each AWS Region and establishes a
+        transit gateway peering connection between all transit gateways deployed by this solution. 
 
--   How should we think about implementing and configuring a transitive
-    network on AWS and what are the best practices
+This solution contains an AWS CloudFormation (CFN) Stack for launching AWS Network Manager. 
+The CFN stack can be found in the folder labeled "network-manager-cloudformation-template".
+Today, Terraform does not expose a resource for creation an AWS Network Manager. They are, however, working on a resource. 
+This solution will be modified to include this terraform resource once it is available.  
 
--   How can we introduce automation to ensure that all VPCs integrates
-    with this transitive network
-
--   How should I think about egress to AWS services and how should this
-    be implemented
-
--   What are our options for DNS; that is, what are our options for
-    deploying DNS within AWS and integrating this with our DNS solution
-    on-premises
-
-As for traffic and routing, this solution provides automated
-configuration for each of the follow:
-
--   East - West packet inspection via a security VPC if one is available
-
--   No East -- West packet inspection. Traffic flow directly to the DNS
-    network, Shared Services network and on-premises.
-
--   Traffic flow to a shared services or DNS VPC without traffic
-    inspection if no security services VPC is available
-
--   Intentional VPC & transit gateway route table configuration with no
-    automatic route propagation to the default route table
-
--   VPC Isolation
-
-
-```
- Note. 
-```
-
-This document is comprehensive. Therefore, if you are reading this ReadMe file from the terraform-aws-network-deployer GitHub repository then you might want to skip to the following sections:
-- [Shared Services Network](#shared-services-network)
-- [Network Deployer Deployment Guide](#network-deployer-deployment-guide)
-
-That said, if you are reading this documentation from the terraform-aws-globalnetwork GitHub repository then you might want to skip to the below sections:
-- [Technical Overview ](#technical-overview)
-- [The Transitive Network](#the-transitive-network)
-- [The AWS Transit Gateway Repository and modules](#the-aws-transit-gateway-repository-and-modules)
-
- 
+In the mean, if you chose to enable network manager integration, you will have to supply the network manager id. 
+You can use one that you alrerady have or launch a new network manager using the CFN stack available in this solution then supply the network manager ID.
 
 # Assumptions
 
@@ -167,16 +134,6 @@ The below links provides insight into these AWS services.
 
     -   <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html>
 
-# **Technical Overview** 
-
-This section dives deeper into the three key network types that are
-built by this solution. These networks are as follows:
-
--   **Layer Three/Transitive Network(s)**
-
--   **Shared Services Network(s)**
-
--   **Spoke Networks**
 
 # The Transitive Network 
 
