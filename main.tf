@@ -23,12 +23,22 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
           "logs:PutLogEvents"
         ],
         "Resource": "arn:aws:logs:*:*:*",
-        "Effect": "Allow"
+        "Effect": "Allow",
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalAccount": "${data.aws_caller_identity.first.account_id}"
+          }
+        }
       },
       {
         "Action": ["networkmanager:*", "ec2:*"],
         "Resource": "*",
-        "Effect": "Allow"
+        "Effect": "Allow",
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalAccount": "${data.aws_caller_identity.first.account_id}"
+          }
+        }
       }
     ]
   })
