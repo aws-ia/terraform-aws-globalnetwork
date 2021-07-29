@@ -1,4 +1,19 @@
 #-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | ---> Enables the creation of a specific transit gateway route table
+#-----------------------------------------------------------------------------------------------------
+variable "route_tables" {
+  type = map(bool)
+  default = {
+    shared_services_route_table   = true
+    north_south_route_table       = true
+    packet_inspection_route_table = true
+    development_route_table       = true
+    production_route_table        = true
+    uat_route_table               = true
+  }
+}
+
+#-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Create Network Manager
 #-----------------------------------------------------------------------------------------------------
 # This variables tells the solution if an AWS Network Manager exist (true) or not (false).
@@ -23,7 +38,7 @@ variable "network_manager_name"{
 # The full AWS ARN is required for your AWS Network Manager.
 # ----------------------------------------------------------------------------------------------------
 variable "network_manager_id"{
-  default = "aws-network-manager-id"
+  default = "your-global-network-id-here"
 }
 
 
@@ -80,9 +95,9 @@ variable "deploy_transit_gateway_in_this_aws_region" {
   type = map(bool)
   default = {
     all_aws_regions                       = false # true
-    ohio                                  = false # true
-    n_virginia                            = false # true
-    oregon                                = false # true
+    ohio                                  = false  # false
+    n_virginia                            = false  # false
+    oregon                                = false  # true
     n_california                          = false # true
     canada_east                           = false # true
     ireland                               = false # true
@@ -119,7 +134,7 @@ variable "transit_gateway_peering" {
     oregon_n_virginia             = false # true
     oregon_n_sao_paulo            = false # true
     oregon_n_london               = false # true
-    # n_california_canada_east      = false # true
+    # n_california_canada_east    = false # true
     n_california_n_virginia       = false # true
     n_virginia_canada_east        = false # true
     n_virginia_n_london           = false # true
@@ -212,7 +227,7 @@ variable "remote_site_public_ip"{
 
 
 variable "how_many_vpn_connections"{
-    default = 1
+    default = 20
 }
 
 #-----------------------------------------------------------------------------------------------------
@@ -221,25 +236,25 @@ variable "how_many_vpn_connections"{
 # Variables that makes up the AWS Tags assigned to the VPC on creation.
 # ----------------------------------------------------------------------------------------------------
 variable "Application_ID" {
-  description = "The Application ID of the application that will be hosted inside this Amazon VPC."
+  description = "The Application ID for this application built by AWS."
   type = string
-  default = "0000000"
+  default = "transit-gateway-builder-v0"
 }
 
 variable "Application_Name" {
-  description = "The name of the application. Max 10 characters. Allowed characters [0-9A-Za-z]."
+  description = "The name of this application."
   type = string
-  default = "fsf-transit-gateway-vpc"
+  default = "aws-fsf-transit-gateway-builder"
 }
 
 variable "Business_Unit" {
-  description = "The business unit or line of business to which this application belongs."
+  description = "Your business unit or line of business name"
   type = string
-  default = "Commercial Banking (CB)"
+  default = "YourBusinessUnitName"
 }
 
 variable "Environment_Type" {
-  description = "The applications environment type. Possible values: LAB, SandBox, DEV, UAT, PROD."
+  description = "The environment type defaults to PRODUCTION and cannot be changed"
   type = string
   default = "PRODUCTION"
   validation {
@@ -249,30 +264,30 @@ variable "Environment_Type" {
 }
 
 variable "Supported_Networks" {
-  description = "The applications environment type. Possible values: LAB, SandBox, DEV, UAT, PROD."
+  description = "Administrative use only and should not be changed"
   type = string
   default = "Spoke_VPCs_Under_This_Organization"
   validation {
     condition     = (var.Supported_Networks == "Spoke_VPCs_Under_This_Organization")
-    error_message = "External Principals should not be allowed unless in the case of a merger."
+    error_message = "Spoke_VPCs_Under_This_Organization is the only supported value."
   }
 }
 
 variable "CostCenterCode" {
-  description = "CSI Billing Profile Number associated with application to be hosted in this vpc."
+  description = "Your cost center code for billing purposes"
   type = string
-  default = "CB-0000000"
+  default = "YourCostCenterCode"
 }
 
 variable "CreatedBy" {
   description = "CSI Billing Profile Number associated with application to be hosted in this vpc."
   type = string
-  default = "Androski_Spicer"
+  default = "YourName"
 }
 
 variable "Manager" {
   description = "CSI Billing Profile Number associated with application to be hosted in this vpc."
   type = string
-  default = "KenJackson"
+  default = "YourManagerName"
 }
 

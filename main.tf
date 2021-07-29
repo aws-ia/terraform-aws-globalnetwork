@@ -31,7 +31,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
         }
       },
       {
-        "Action": ["networkmanager:*", "ec2:*"],
+        "Action": ["networkmanager:*", "ec2:*", "cloudwatch:*"],
         "Resource": "*",
         "Effect": "Allow",
         "Condition": {
@@ -43,6 +43,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
     ]
   })
 }
+
 
 resource "aws_iam_role" "iam_for_lambda_tgw_globalnetwork_attach" {
   name = "iam_for_lambda_tgw_globalnetwork_attach"

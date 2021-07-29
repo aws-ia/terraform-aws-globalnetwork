@@ -146,13 +146,13 @@ resource "aws_vpn_connection" "aws_site_to_site_vpn_1" {
 resource "aws_ec2_transit_gateway_route_table_association" "aws_site_to_site_vpn_1_assoc_with_north_south_rte_table" {
   count = ( var.create_site_to_site_vpn == true ? var.how_many_vpn_connections : 0 )
   transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.north_south_route_table.id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.north_south_route_table[0].id
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "aws_site_to_site_vpn_1_propagation_north_south" {
   count = ( var.create_site_to_site_vpn == true ? var.how_many_vpn_connections : 0 )
   transit_gateway_attachment_id  = aws_vpn_connection.aws_site_to_site_vpn_1[count.index].transit_gateway_attachment_id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.north_south_route_table.id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.north_south_route_table[0].id
 }
 
 # ---------------------------------------------------------------------------------------------------------------

@@ -1,20 +1,3 @@
-//
-//#-----------------------------------------------------------------------------------------------------
-//#  AWS Transit Gateway | ---> Enables the creation of a specific transit gateway route table
-//#-----------------------------------------------------------------------------------------------------
-//variable "route_tables" {
-//  type = map(bool)
-//  default = {
-//    shared_services_route_table   = true
-//    north_south_route_table       = true
-//    packet_inspection_route_table = true
-//    development_route_table       = true
-//    production_route_table        = true
-//    uat_route_table               = true
-//  }
-//}
-
-
 
 //
 //#-----------------------------------------------------------------------------------------------------
