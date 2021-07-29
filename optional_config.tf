@@ -1,17 +1,4 @@
 
-//
-//#-----------------------------------------------------------------------------------------------------
-//# AWS Transit Gateway | ---> AWS Site-to-Site VPN Configuration
-//# -----------------------------------------------------------------------------------------------------
-//variable "tgw_vpn" {
-//  type = map(bool)
-//  default = {
-//    create_site_to_site_vpn  = false # true
-//  }
-//}
-
-
-
 //#-----------------------------------------------------------------------------------------------------
 //#  AWS Transit Gateway | ---> Enables the deployment of a transit gateway in the specified region
 //#-----------------------------------------------------------------------------------------------------
@@ -25,40 +12,10 @@
 //
 
 
-#-----------------------------------------------------------------------------------------------------
-# AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
-#-----------------------------------------------------------------------------------------------------
-//variable amazon_side_asn{
-//    default="64512"
-//}
-
-//variable "vpn_ecmp_support" {
-//  default = "enable"
-//  validation {
-//    condition     = (var.vpn_ecmp_support == "enable")
-//    error_message = "External Principals should not be allowed unless in the case of a merger."
-//  }
-//}
-
 //variable "dns_support" {
 //  default = "disable"
 //}
 
-//variable "default_route_table_propagation" {
-//  default = "disable"
-//  validation {
-//    condition     = (var.default_route_table_propagation == "disable")
-//    error_message = "Transit Gateway Attachments routes must not be automatically propagated to the default route table."
-//  }
-//}
-
-//variable "default_route_table_association" {
-//  default = "disable"
-//  validation {
-//    condition     = (var.default_route_table_association == "disable")
-//    error_message = "Attachments must not be automatically associated with the TGW Default route table."
-//  }
-//}
 
 //variable "auto_accept_shared_attachments" {
 //  default = "enable"
@@ -70,10 +27,5 @@
 //    condition     = (var.allow_external_principals == false)
 //    error_message = "External Principals should not be allowed unless in the case of a merger."
 //  }
-//}
-
-
-//variable "vpn_type"{
-//    default = "ipsec.1"
 //}
 

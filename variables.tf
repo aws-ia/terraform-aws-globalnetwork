@@ -13,6 +13,22 @@ variable "route_tables" {
   }
 }
 
+variable "default_route_table_propagation" {
+  default = "disable"
+  validation {
+    condition     = (var.default_route_table_propagation == "disable")
+    error_message = "Transit Gateway Attachments routes must not be automatically propagated to the default route table."
+  }
+}
+
+variable "default_route_table_association" {
+  default = "disable"
+  validation {
+    condition     = (var.default_route_table_association == "disable")
+    error_message = "Attachments must not be automatically associated with the TGW Default route table."
+  }
+}
+
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Create Network Manager
 #-----------------------------------------------------------------------------------------------------
