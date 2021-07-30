@@ -743,7 +743,10 @@ module "terraform-aws-fsf-tgw-deployment-ohio" {
     }
     create_site_to_site_vpn = var.create_site_to_site_vpn.ohio
     amazon_side_asn = "64513" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
-    transit_gateway_deployment = false
+     
+  default_route_table_association = var.default_route_table_association
+  default_route_table_propagation = var.default_route_table_propagation
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution
 }
 ```
 

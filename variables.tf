@@ -1,33 +1,120 @@
-#-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | ---> Enables the creation of a specific transit gateway route table
-#-----------------------------------------------------------------------------------------------------
-variable "route_tables" {
+#-----------------------------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | ---> Creates AWS Transit Gateway route tables that are needed by the network deployer solution
+#-----------------------------------------------------------------------------------------------------------------------
+variable "enable_integration_with_network_deployer_solution" {
   type = map(bool)
   default = {
-    shared_services_route_table   = true
-    north_south_route_table       = true
-    packet_inspection_route_table = true
-    development_route_table       = true
-    production_route_table        = true
-    uat_route_table               = true
+    ohio          = false
+    n_virginia    = false
+    oregon        = false
+    n_california  = false
+    canada_east   = false
+    ireland       = false
+    london        = false
+    stockholm     = false
+    frankfurt     = false
+    paris         = false
+    tokyo         = false
+    seoul         = false
+    sydney        = false
+    mumbai        = false
+    singapore     = false
+    sao_paulo     = false
   }
 }
 
 variable "default_route_table_propagation" {
-  default = "disable"
-  validation {
-    condition     = (var.default_route_table_propagation == "disable")
-    error_message = "Transit Gateway Attachments routes must not be automatically propagated to the default route table."
+  type = map(string)
+  default = {
+    hq                                    = "disable"
+    ohio                                  = "disable"
+    n_virginia                            = "disable"
+    oregon                                = "disable"
+    n_california                          = "disable"
+    canada_east                           = "disable"
+    ireland                               = "disable"
+    london                                = "disable"
+    stockholm                             = "disable"
+    frankfurt                             = "disable"
+    paris                                 = "disable"
+    tokyo                                 = "disable"
+    seoul                                 = "disable"
+    sydney                                = "disable"
+    mumbai                                = "disable"
+    singapore                             = "disable"
+    sao_paulo                             = "disable"
   }
 }
 
 variable "default_route_table_association" {
-  default = "disable"
-  validation {
-    condition     = (var.default_route_table_association == "disable")
-    error_message = "Attachments must not be automatically associated with the TGW Default route table."
+  type = map(string)
+  default = {
+    hq                                    = "disable"
+    ohio                                  = "disable"
+    n_virginia                            = "disable"
+    oregon                                = "disable"
+    n_california                          = "disable"
+    canada_east                           = "disable"
+    ireland                               = "disable"
+    london                                = "disable"
+    stockholm                             = "disable"
+    frankfurt                             = "disable"
+    paris                                 = "disable"
+    tokyo                                 = "disable"
+    seoul                                 = "disable"
+    sydney                                = "disable"
+    mumbai                                = "disable"
+    singapore                             = "disable"
+    sao_paulo                             = "disable"
   }
 }
+
+variable "vpn_ecmp_support" {
+  type = map(string)
+  default = {
+    hq                                    = "enable"
+    ohio                                  = "enable"
+    n_virginia                            = "enable"
+    oregon                                = "enable"
+    n_california                          = "enable"
+    canada_east                           = "enable"
+    ireland                               = "enable"
+    london                                = "enable"
+    stockholm                             = "enable"
+    frankfurt                             = "enable"
+    paris                                 = "enable"
+    tokyo                                 = "enable"
+    seoul                                 = "enable"
+    sydney                                = "enable"
+    mumbai                                = "enable"
+    singapore                             = "enable"
+    sao_paulo                             = "enable"
+  }
+}
+
+variable "dns_support" {
+  type = map(string)
+  default = {
+    hq                                    = "disable"
+    ohio                                  = "disable"
+    n_virginia                            = "disable"
+    oregon                                = "disable"
+    n_california                          = "disable"
+    canada_east                           = "disable"
+    ireland                               = "disable"
+    london                                = "disable"
+    stockholm                             = "disable"
+    frankfurt                             = "disable"
+    paris                                 = "disable"
+    tokyo                                 = "disable"
+    seoul                                 = "disable"
+    sydney                                = "disable"
+    mumbai                                = "disable"
+    singapore                             = "disable"
+    sao_paulo                             = "disable"
+  }
+}
+
 
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Create Network Manager
@@ -64,10 +151,24 @@ variable "network_manager_id"{
 #  False results in the addition of on-premises routes added to the dev, uat, prod, shared services, and packet inspection transit gateway route table.
 #-----------------------------------------------------------------------------------------------------
 variable "centralized_packet_inspection_enabled" {
-  default = false
-  validation {
-    condition     = (var.centralized_packet_inspection_enabled == false || var.centralized_packet_inspection_enabled == true)
-    error_message = "Centralized_packet_inspection_enabled must be either true or false."
+  type = map(bool)
+  default = {
+    ohio          = false
+    n_virginia    = false
+    oregon        = false
+    n_california  = false
+    canada_east   = false
+    ireland       = false
+    london        = false
+    stockholm     = false
+    frankfurt     = false
+    paris         = false
+    tokyo         = false
+    seoul         = false
+    sydney        = false
+    mumbai        = false
+    singapore     = false
+    sao_paulo     = false
   }
 }
 
@@ -243,8 +344,361 @@ variable "remote_site_public_ip"{
 
 
 variable "how_many_vpn_connections"{
-    default = 20
+  type = map(number)
+  default = {
+    hq                                    = 0
+    ohio                                  = 1
+    n_virginia                            = 0
+    oregon                                = 0
+    n_california                          = 0
+    canada_east                           = 0
+    ireland                               = 0
+    london                                = 0
+    stockholm                             = 0
+    frankfurt                             = 0
+    paris                                 = 0
+    tokyo                                 = 0
+    seoul                                 = 0
+    sydney                                = 0
+    mumbai                                = 0
+    singapore                             = 0
+    sao-paulo                             = 0
+  }
 }
+
+
+
+# -----------------------------------------------------------------------------------------------------
+# Advance VPN Configuration
+# -----------------------------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------------------------------
+# Indicate whether to enable acceleration for the VPN connection. Supports only EC2 Transit Gateway.
+# -----------------------------------------------------------------------------------------------------
+variable "enable_acceleration"{
+  type = map(bool)
+  default = {
+    ohio          = false
+    n_virginia    = false
+    oregon        = false
+    n_california  = false
+    canada_east   = false
+    ireland       = false
+    london        = false
+    stockholm     = false
+    frankfurt     = false
+    paris         = false
+    tokyo         = false
+    seoul         = false
+    sydney        = false
+    mumbai        = false
+    singapore     = false
+    sao_paulo     = false
+  }
+
+}
+
+# -----------------------------------------------------------------------------------------------------
+# Indicate whether the VPN tunnels process IPv4 or IPv6 traffic. Valid values are ipv4 | ipv6.
+# ipv6 Supports only EC2 Transit Gateway.
+# -----------------------------------------------------------------------------------------------------
+variable "tunnel_inside_ip_version" {
+  default = "ipv4"
+  validation {
+    condition     = (var.tunnel_inside_ip_version == "ipv4" || var.tunnel_inside_ip_version == "ipv6" )
+    error_message = "The variable tunnel_inside_ip_version accepts ipv4 or ipv6."
+  }
+}
+
+
+variable "tunnel_inside_cidrs"{
+  type = map(list(string))
+  default = {
+    ohio                                  = []
+    n_virginia                            = []
+    oregon                                = []
+    n_california                          = []
+    canada_east                           = []
+    ireland                               = []
+    london                                = []
+    stockholm                             = []
+    frankfurt                             = []
+    paris                                 = []
+    tokyo                                 = []
+    seoul                                 = []
+    sydney                                = []
+    mumbai                                = []
+    singapore                             = []
+    sao-paulo                             = []
+  }
+}
+
+
+# -----------------------------------------------------------------------------------------------------
+# The preshared key of the first VPN tunnel.
+# The preshared key must be between 8 and 64 characters in length and cannot start with zero(0).
+# Allowed characters are alphanumeric characters, periods(.) and underscores(_).
+# -----------------------------------------------------------------------------------------------------
+variable "tunnel1_preshared_key"{
+  type = map(string)
+  default = {
+    ohio                                  = ""
+    n_virginia                            = ""
+    oregon                                = ""
+    n_california                          = ""
+    canada_east                           = ""
+    ireland                               = ""
+    london                                = ""
+    stockholm                             = ""
+    frankfurt                             = ""
+    paris                                 = ""
+    tokyo                                 = ""
+    seoul                                 = ""
+    sydney                                = ""
+    mumbai                                = ""
+    singapore                             = ""
+    sao-paulo                             = ""
+  }
+}
+
+
+# -----------------------------------------------------------------------------------------------------
+# The preshared key of the second VPN tunnel.
+# The preshared key must be between 8 and 64 characters in length and cannot start with zero(0).
+# Allowed characters are alphanumeric characters, periods(.) and underscores(_).
+# -----------------------------------------------------------------------------------------------------
+variable "tunnel2_preshared_key"{
+  default = {
+    ohio                                  = ""
+    n_virginia                            = ""
+    oregon                                = ""
+    n_california                          = ""
+    canada_east                           = ""
+    ireland                               = ""
+    london                                = ""
+    stockholm                             = ""
+    frankfurt                             = ""
+    paris                                 = ""
+    tokyo                                 = ""
+    seoul                                 = ""
+    sydney                                = ""
+    mumbai                                = ""
+    singapore                             = ""
+    sao-paulo                             = ""
+  }
+}
+
+# -----------------------------------------------------------------------------------------------------
+# The action to take after DPD timeout occurs for the first VPN tunnel.
+# Specify restart to restart the IKE initiation.
+# Specify clear to end the IKE session. Valid values are clear | none | restart.
+# -----------------------------------------------------------------------------------------------------
+variable "tunnel1_dpd_timeout_action"{
+  default = "clear"
+  validation {
+    condition     = (var.tunnel1_dpd_timeout_action == "clear" || var.tunnel1_dpd_timeout_action == "none" || var.tunnel1_dpd_timeout_action == "restart" )
+    error_message = "The variable tunnel1_dpd_timeout_action accepts clear, none or restart."
+  }
+}
+
+# -----------------------------------------------------------------------------------------------------
+# The action to take after DPD timeout occurs for the first VPN tunnel.
+# Specify restart to restart the IKE initiation. Specify clear to end the IKE session.
+# Valid values are clear | none | restart.
+# -----------------------------------------------------------------------------------------------------
+variable "tunnel2_dpd_timeout_action"{
+  default = "clear"
+  validation {
+    condition     = (var.tunnel2_dpd_timeout_action == "clear" || var.tunnel2_dpd_timeout_action == "none" || var.tunnel2_dpd_timeout_action == "restart" )
+    error_message = "The variable tunnel2_dpd_timeout_action accepts clear, none or restart."
+  }
+}
+
+# -----------------------------------------------------------------------------------------------------
+# The number of seconds after which a DPD timeout occurs for the first VPN tunnel.
+# Valid value is equal or higher than 30.
+# -----------------------------------------------------------------------------------------------------
+variable "tunnel1_dpd_timeout_seconds"{
+  default = 30
+}
+
+# The number of seconds after which a DPD timeout occurs for the second VPN tunnel.
+# Valid value is equal or higher than 30.
+variable "tunnel2_dpd_timeout_seconds"{
+  default = 30
+}
+
+# The IKE versions that are permitted for the first VPN tunnel. Valid values are ikev1 | ikev2.
+variable "tunnel1_ike_versions"{
+  default = ["ikev1","ikev2"]
+}
+
+# The IKE versions that are permitted for the second VPN tunnel. Valid values are ikev1 | ikev2.
+variable "tunnel2_ike_versions"{
+  default = ["ikev1","ikev2"]
+}
+
+
+# List of one or more Diffie-Hellman group numbers that are permitted for the first VPN tunnel for phase 1 IKE negotiations.
+# Valid values are 2 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24.
+variable "tunnel1_phase1_dh_group_numbers"{
+  default =  [2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+}
+
+
+# List of one or more Diffie-Hellman group numbers that are permitted for the second VPN tunnel for phase 1 IKE negotiations.
+# Valid values are 2 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24.
+variable "tunnel2_phase1_dh_group_numbers"{
+  default =  [2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+}
+
+
+# List of one or more encryption algorithms that are permitted for the first VPN tunnel for phase 1 IKE negotiations.
+# Valid values are AES128 | AES256 | AES128-GCM-16 | AES256-GCM-16.
+variable "tunnel1_phase1_encryption_algorithms"{
+  default = ["AES128", "AES256", "AES128-GCM-16", "AES256-GCM-16"]
+}
+
+
+# List of one or more encryption algorithms that are permitted for the second VPN tunnel for phase 1 IKE negotiations.
+# Valid values are AES128 | AES256 | AES128-GCM-16 | AES256-GCM-16.
+variable "tunnel2_phase1_encryption_algorithms"{
+  default = ["AES128", "AES256", "AES128-GCM-16", "AES256-GCM-16"]
+}
+
+# One or more integrity algorithms that are permitted for the first VPN tunnel for phase 1 IKE negotiations.
+# Valid values are SHA1 | SHA2-256 | SHA2-384 | SHA2-512.
+
+variable "tunnel1_phase1_integrity_algorithms"{
+  default = ["SHA1", "SHA2-256", "SHA2-384", "SHA2-512"]
+}
+
+# One or more integrity algorithms that are permitted for the second VPN tunnel for phase 1 IKE negotiations.
+# Valid values are SHA1 | SHA2-256 | SHA2-384 | SHA2-512.
+variable "tunnel2_phase1_integrity_algorithms"{
+  default = ["SHA1", "SHA2-256", "SHA2-384", "SHA2-512"]
+}
+
+
+# The lifetime for phase 1 of the IKE negotiation for the first VPN tunnel, in seconds.
+# Valid value is between 900 and 28800.
+variable "tunnel1_phase1_lifetime_seconds"{
+  default = 28800
+}
+
+# The lifetime for phase 1 of the IKE negotiation for the second VPN tunnel, in seconds.
+# Valid value is between 900 and 28800.
+variable "tunnel2_phase1_lifetime_seconds"{
+  default = 28800
+}
+
+
+# List of one or more Diffie-Hellman group numbers that are permitted for the first VPN tunnel for phase 2 IKE negotiations.
+# Valid values are 2 | 5 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24.
+variable "tunnel1_phase2_dh_group_numbers"{
+  default = [2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+}
+
+# List of one or more Diffie-Hellman group numbers that are permitted for the second VPN tunnel for phase 2 IKE negotiations.
+# Valid values are 2 | 5 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24.
+
+variable "tunnel2_phase2_dh_group_numbers"{
+  default = [2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+}
+
+# List of one or more encryption algorithms that are permitted for the first VPN tunnel for phase 2 IKE negotiations.
+# Valid values are AES128 | AES256 | AES128-GCM-16 | AES256-GCM-16.
+variable "tunnel1_phase2_encryption_algorithms"{
+  default = ["AES128", "AES256", "AES128-GCM-16", "AES256-GCM-16"]
+}
+
+# List of one or more encryption algorithms that are permitted for the second VPN tunnel for phase 2 IKE negotiations
+# Valid values are AES128 | AES256 | AES128-GCM-16 | AES256-GCM-16.
+variable "tunnel2_phase2_encryption_algorithms"{
+  default = ["AES128", "AES256", "AES128-GCM-16", "AES256-GCM-16"]
+}
+
+# List of one or more integrity algorithms that are permitted for the first VPN tunnel for phase 2 IKE negotiations.
+# Valid values are SHA1 | SHA2-256 | SHA2-384 | SHA2-512.
+variable "tunnel1_phase2_integrity_algorithms"{
+  default = ["SHA1", "SHA2-256", "SHA2-384", "SHA2-512"]
+}
+
+# List of one or more integrity algorithms that are permitted for the second VPN tunnel for phase 2 IKE negotiations.
+# Valid values are SHA1 | SHA2-256 | SHA2-384 | SHA2-512.
+variable "tunnel2_phase2_integrity_algorithms"{
+  default = ["SHA1", "SHA2-256", "SHA2-384", "SHA2-512"]
+}
+
+# The lifetime for phase 2 of the IKE negotiation for the first VPN tunnel, in seconds.
+# Valid value is between 900 and 3600.
+variable "tunnel1_phase2_lifetime_seconds"{
+  default = 3600
+}
+
+# The lifetime for phase 2 of the IKE negotiation for the second VPN tunnel, in seconds.
+# Valid value is between 900 and 3600.
+variable "tunnel2_phase2_lifetime_seconds"{
+  default = 3600
+}
+
+
+# The percentage of the rekey window for the first VPN tunnel (determined by tunnel1_rekey_margin_time_seconds)
+# during which the rekey time is randomly selected. Valid value is between 0 and 100.
+variable "tunnel1_rekey_fuzz_percentage"{
+  default = 100
+}
+
+# The percentage of the rekey window for the second VPN tunnel (determined by tunnel2_rekey_margin_time_seconds)
+# during which the rekey time is randomly selected. Valid value is between 0 and 100.
+variable "tunnel2_rekey_fuzz_percentage"{
+  default = 100
+}
+# The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the first VPN connection performs an IKE rekey.
+# The exact time of the rekey is randomly selected based on the value for tunnel1_rekey_fuzz_percentage. Valid value is between 60 and half of tunnel1_phase2_lifetime_seconds.
+variable "tunnel1_rekey_margin_time_seconds"{
+  default = 540
+}
+
+# The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the second VPN connection performs an IKE rekey.
+# The exact time of the rekey is randomly selected based on the value for tunnel2_rekey_fuzz_percentage. Valid value is between 60 and half of tunnel2_phase2_lifetime_seconds.
+variable "tunnel2_rekey_margin_time_seconds"{
+  default = 540
+}
+
+# The number of packets in an IKE replay window for the first VPN tunnel. Valid value is between 64 and 2048.
+variable "tunnel1_replay_window_size"{
+  default = 1024
+}
+
+# The number of packets in an IKE replay window for the second VPN tunnel. Valid value is between 64 and 2048.
+variable "tunnel2_replay_window_size"{
+  default = 1024
+}
+
+
+# The action to take when the establishing the tunnel for the first VPN connection.
+# By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel.
+# Specify start for AWS to initiate the IKE negotiation. Valid values are add | start.
+variable "tunnel1_startup_action"{
+  default = "add"
+  validation {
+    condition     = (var.tunnel1_startup_action == "add" || var.tunnel1_startup_action == "start")
+    error_message = "The variable tunnel1_startup_action accepts add or start."
+  }
+}
+
+# The action to take when the establishing the tunnel for the second VPN connection.
+# By default, your customer gateway device must initiate the IKE negotiation and bring up the tunnel.
+# Specify start for AWS to initiate the IKE negotiation. Valid values are add | start.
+variable "tunnel2_startup_action"{
+  default = "add"
+  validation {
+    condition     = (var.tunnel2_startup_action == "add" || var.tunnel2_startup_action == "start")
+    error_message = "The variable tunnel2_startup_action accepts add or start."
+  }
+}
+
 
 #-----------------------------------------------------------------------------------------------------
 # TAGS | -------> Exposes a uniform system of tagging.

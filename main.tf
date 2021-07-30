@@ -104,14 +104,20 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
     aws = aws.n_virginia
   }
 
+
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_virginia
   remote_site_public_ip = var.remote_site_public_ip.n_virginia # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.n_virginia             # var.remote_site_asn.hq
   amazon_side_asn = "64512" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.n_virginia
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  default_route_table_association = var.default_route_table_association.n_virginia
+  default_route_table_propagation = var.default_route_table_propagation.n_virginia
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.n_virginia
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.n_virginia
+
+  dns_support                     = var.dns_support.n_virginia
+  vpn_ecmp_support                = var.vpn_ecmp_support.n_virginia
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -142,14 +148,56 @@ module "terraform-aws-fsf-tgw-deployment-ohio" {
   providers = {
     aws = aws.ohio
   }
-  create_site_to_site_vpn = var.create_site_to_site_vpn.ohio
-  remote_site_public_ip = var.remote_site_public_ip.ohio # var.remote_site_public_ip.hq
-  amazon_side_asn = "64513" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
-  remote_site_asn = var.remote_site_asn.ohio
+  create_site_to_site_vpn                           = var.create_site_to_site_vpn.ohio
+  remote_site_public_ip                             = var.remote_site_public_ip.ohio
+  amazon_side_asn                                   = "64513" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  remote_site_asn                                   = var.remote_site_asn.ohio
+  how_many_vpn_connections                          = var.how_many_vpn_connections.ohio
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.ohio
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.ohio
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.ohio
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.ohio
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association                   = var.default_route_table_association.ohio
+  default_route_table_propagation                   = var.default_route_table_propagation.ohio
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.ohio
+  centralized_packet_inspection_enabled             = var.centralized_packet_inspection_enabled.ohio
+
+  dns_support                                       = var.dns_support.ohio
+  vpn_ecmp_support                                  = var.vpn_ecmp_support.ohio
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -184,11 +232,53 @@ module "terraform-aws-fsf-tgw-deployment-n_california" {
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_california
   remote_site_public_ip = var.remote_site_public_ip.n_california # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.n_california
-
   amazon_side_asn = "64514" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  how_many_vpn_connections = var.how_many_vpn_connections.n_california
+
+  enable_acceleration                               = var.enable_acceleration.n_california
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.n_california
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.n_california
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.n_california
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.n_california
+  default_route_table_propagation = var.default_route_table_propagation.n_california
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.n_california
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.n_california
+
+  dns_support                     = var.dns_support.n_california
+  vpn_ecmp_support                = var.vpn_ecmp_support.n_california
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -224,10 +314,52 @@ module "terraform-aws-fsf-tgw-deployment-oregon" {
   remote_site_public_ip = var.remote_site_public_ip.oregon # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.oregon
   amazon_side_asn = "64515" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.oregon
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.oregon
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.oregon
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.oregon
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.oregon
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.oregon
+  default_route_table_propagation = var.default_route_table_propagation.oregon
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.oregon
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.oregon
+
+  dns_support                     = var.dns_support.oregon
+  vpn_ecmp_support                = var.vpn_ecmp_support.oregon
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -263,10 +395,52 @@ module "terraform-aws-fsf-tgw-deployment-canada-montreal" {
   remote_site_public_ip = var.remote_site_public_ip.canada_east # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.canada_east
   amazon_side_asn = "64516" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.canada_east
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.canada_east
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.canada_east
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.canada_east
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.canada_east
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.canada_east
+  default_route_table_propagation = var.default_route_table_propagation.canada_east
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.canada_east
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.canada_east
+
+  dns_support                     = var.dns_support.canada_east
+  vpn_ecmp_support                = var.vpn_ecmp_support.canada_east
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -302,10 +476,52 @@ module "terraform-aws-fsf-tgw-deployment-mumbai" {
   remote_site_public_ip = var.remote_site_public_ip.mumbai  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.mumbai
   amazon_side_asn = "64519" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.mumbai
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.mumbai
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.mumbai
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.mumbai
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.mumbai
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.mumbai
+  default_route_table_propagation = var.default_route_table_propagation.mumbai
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.mumbai
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.mumbai
+
+  dns_support                     = var.dns_support.mumbai
+  vpn_ecmp_support                = var.vpn_ecmp_support.mumbai
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -342,10 +558,52 @@ module "terraform-aws-fsf-tgw-deployment-seoul" {
   remote_site_public_ip = var.remote_site_public_ip.seoul  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.seoul
   amazon_side_asn = "64521" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.seoul
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.seoul
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.seoul
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.seoul
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.seoul
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.seoul
+  default_route_table_propagation = var.default_route_table_propagation.seoul
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.seoul
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.seoul
+
+  dns_support                     = var.dns_support.seoul
+  vpn_ecmp_support                = var.vpn_ecmp_support.seoul
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -378,10 +636,52 @@ module "terraform-aws-fsf-tgw-deployment-singapore" {
   remote_site_public_ip = var.remote_site_public_ip.singapore  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.singapore
   amazon_side_asn = "64522" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.singapore
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.singapore
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.singapore
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.singapore
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.singapore
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.singapore
+  default_route_table_propagation = var.default_route_table_propagation.singapore
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.singapore
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.singapore
+
+  dns_support                     = var.dns_support.singapore
+  vpn_ecmp_support                = var.vpn_ecmp_support.singapore
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -417,10 +717,52 @@ module "terraform-aws-fsf-tgw-deployment-sydney" {
   remote_site_public_ip = var.remote_site_public_ip.sydney  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.sydney
   amazon_side_asn = "64523" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.sydney
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.sydney
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.sydney
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.sydney
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.sydney
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.sydney
+  default_route_table_propagation = var.default_route_table_propagation.sydney
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.sydney
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.sydney
+
+  dns_support                     = var.dns_support.sydney
+  vpn_ecmp_support                = var.vpn_ecmp_support.sydney
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -454,10 +796,52 @@ module "terraform-aws-fsf-tgw-deployment-tokyo" {
   remote_site_public_ip = var.remote_site_public_ip.tokyo  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.tokyo
   amazon_side_asn = "64524" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.tokyo
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.tokyo
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.tokyo
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.tokyo
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.tokyo
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.tokyo
+  default_route_table_propagation = var.default_route_table_propagation.tokyo
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.tokyo
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.tokyo
+
+  dns_support                     = var.dns_support.tokyo
+  vpn_ecmp_support                = var.vpn_ecmp_support.tokyo
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -491,10 +875,52 @@ module "terraform-aws-fsf-tgw-deployment-frankfurt" {
   remote_site_public_ip = var.remote_site_public_ip.frankfurt  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.frankfurt
   amazon_side_asn = "64525" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.frankfurt
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.frankfurt
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.frankfurt
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.frankfurt
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.frankfurt
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.frankfurt
+  default_route_table_propagation = var.default_route_table_propagation.frankfurt
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.frankfurt
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.frankfurt
+
+  dns_support                     = var.dns_support.frankfurt
+  vpn_ecmp_support                = var.vpn_ecmp_support.frankfurt
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -528,10 +954,52 @@ module "terraform-aws-fsf-tgw-deployment-ireland" {
   remote_site_public_ip = var.remote_site_public_ip.ireland  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.ireland
   amazon_side_asn = "64526" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.ireland
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.ireland
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.ireland
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.ireland
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.ireland
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.ireland
+  default_route_table_propagation = var.default_route_table_propagation.ireland
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.ireland
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.ireland
+
+  dns_support                     = var.dns_support.ireland
+  vpn_ecmp_support                = var.vpn_ecmp_support.ireland
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -565,10 +1033,52 @@ module "terraform-aws-fsf-tgw-deployment-london" {
   remote_site_public_ip = var.remote_site_public_ip.london  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.london
   amazon_side_asn = "64527" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.london
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.london
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.london
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.london
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.london
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.london
+  default_route_table_propagation = var.default_route_table_propagation.london
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.london
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.london
+
+  dns_support                     = var.dns_support.london
+  vpn_ecmp_support                = var.vpn_ecmp_support.london
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -602,10 +1112,52 @@ module "terraform-aws-fsf-tgw-deployment-paris" {
   remote_site_public_ip = var.remote_site_public_ip.paris  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.paris
   amazon_side_asn = "64528" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.paris
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.paris
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.paris
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.paris
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.paris
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.paris
+  default_route_table_propagation = var.default_route_table_propagation.paris
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.paris
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.paris
+
+  dns_support                     = var.dns_support.paris
+  vpn_ecmp_support                = var.vpn_ecmp_support.paris
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -639,10 +1191,52 @@ module "terraform-aws-fsf-tgw-deployment-stockholm" {
   remote_site_public_ip = var.remote_site_public_ip.stockholm  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.stockholm
   amazon_side_asn = "64530" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.stockholm
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.stockholm
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.stockholm
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.stockholm
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.stockholm
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.stockholm
+  default_route_table_propagation = var.default_route_table_propagation.stockholm
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.stockholm
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.stockholm
+
+  dns_support                     = var.dns_support.stockholm
+  vpn_ecmp_support                = var.vpn_ecmp_support.stockholm
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
@@ -676,10 +1270,52 @@ module "terraform-aws-fsf-tgw-deployment-sao-paulo" {
   remote_site_public_ip = var.remote_site_public_ip.sao-paulo  # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.sao-paulo
   amazon_side_asn = "64532" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
+  how_many_vpn_connections = var.how_many_vpn_connections.sao-paulo
 
-  transit_gateway_deployment = false
-  how_many_vpn_connections = var.how_many_vpn_connections
-  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled
+  enable_acceleration                               = var.enable_acceleration.sao_paulo
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.sao-paulo
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.sao-paulo
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.sao-paulo
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
+  default_route_table_association = var.default_route_table_association.sao_paulo
+  default_route_table_propagation = var.default_route_table_propagation.sao_paulo
+  enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.sao_paulo
+  centralized_packet_inspection_enabled = var.centralized_packet_inspection_enabled.sao_paulo
+
+  dns_support                     = var.dns_support.sao_paulo
+  vpn_ecmp_support                = var.vpn_ecmp_support.sao_paulo
 
   Application_ID      = var.Application_ID
   Application_Name    = var.Application_Name
