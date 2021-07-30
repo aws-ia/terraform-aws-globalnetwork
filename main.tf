@@ -111,6 +111,43 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
   amazon_side_asn = "64512" # BGP ASNs must be unique for each AWS TGW if you intend to peer & route between them.
   how_many_vpn_connections = var.how_many_vpn_connections.n_virginia
 
+  enable_acceleration                               = var.enable_acceleration.n_virginia
+  tunnel1_preshared_key                             = var.tunnel1_preshared_key.n_virginia
+  tunnel2_preshared_key                             = var.tunnel2_preshared_key.n_virginia
+  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.n_virginia
+
+  tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
+  tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
+  tunnel2_dpd_timeout_action                        = var.tunnel2_dpd_timeout_action
+  tunnel1_dpd_timeout_seconds                       = var.tunnel1_dpd_timeout_seconds
+  tunnel2_dpd_timeout_seconds                       = var.tunnel2_dpd_timeout_seconds
+  tunnel1_ike_versions                              = var.tunnel1_ike_versions
+  tunnel2_ike_versions                              = var.tunnel2_ike_versions
+  tunnel1_phase1_dh_group_numbers                   = var.tunnel1_phase1_dh_group_numbers
+  tunnel2_phase1_dh_group_numbers                   = var.tunnel2_phase1_dh_group_numbers
+  tunnel1_phase1_encryption_algorithms              = var.tunnel1_phase1_encryption_algorithms
+  tunnel2_phase1_encryption_algorithms              = var.tunnel2_phase1_encryption_algorithms
+  tunnel1_phase1_integrity_algorithms               = var.tunnel1_phase1_integrity_algorithms
+  tunnel2_phase1_integrity_algorithms               = var.tunnel2_phase1_integrity_algorithms
+  tunnel1_phase1_lifetime_seconds                   = var.tunnel1_phase1_lifetime_seconds
+  tunnel2_phase1_lifetime_seconds                   = var.tunnel2_phase1_lifetime_seconds
+  tunnel1_phase2_dh_group_numbers                   = var.tunnel1_phase2_dh_group_numbers
+  tunnel2_phase2_dh_group_numbers                   = var.tunnel2_phase2_dh_group_numbers
+  tunnel1_phase2_encryption_algorithms              = var.tunnel1_phase2_encryption_algorithms
+  tunnel2_phase2_encryption_algorithms              = var.tunnel2_phase2_encryption_algorithms
+  tunnel1_phase2_integrity_algorithms               = var.tunnel1_phase2_integrity_algorithms
+  tunnel2_phase2_integrity_algorithms               = var.tunnel2_phase2_integrity_algorithms
+  tunnel1_phase2_lifetime_seconds                   = var.tunnel1_phase2_lifetime_seconds
+  tunnel2_phase2_lifetime_seconds                   = var.tunnel2_phase2_lifetime_seconds
+  tunnel1_rekey_fuzz_percentage                     = var.tunnel1_rekey_fuzz_percentage
+  tunnel2_rekey_fuzz_percentage                     = var.tunnel2_rekey_fuzz_percentage
+  tunnel1_rekey_margin_time_seconds                 = var.tunnel1_rekey_margin_time_seconds
+  tunnel2_rekey_margin_time_seconds                 = var.tunnel2_rekey_margin_time_seconds
+  tunnel1_replay_window_size                        = var.tunnel1_replay_window_size
+  tunnel2_replay_window_size                        = var.tunnel2_replay_window_size
+  tunnel1_startup_action                            = var.tunnel1_startup_action
+  tunnel2_startup_action                            = var.tunnel2_startup_action
+
   default_route_table_association = var.default_route_table_association.n_virginia
   default_route_table_propagation = var.default_route_table_propagation.n_virginia
   enable_integration_with_network_deployer_solution = var.enable_integration_with_network_deployer_solution.n_virginia
