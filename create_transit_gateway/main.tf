@@ -35,15 +35,15 @@ resource "random_string" "alpha_numeric_value" {
 # Checks the preshared key variables and generates keys if they are empty
 # ---------------------------------------------------------------------------------------------------------------
 locals{
-    tunnel_1_preshared_key  = "${var.tunnel1_preshared_key== "" ? random_string.alpha_numeric_value[0].result : var.tunnel1_preshared_key}"
-    tunnel_2_preshared_key  = "${var.tunnel2_preshared_key== "" ? random_string.alpha_numeric_value[1].result : var.tunnel2_preshared_key}"
+    tunnel_1_preshared_key  = var.tunnel1_preshared_key== "" ? random_string.alpha_numeric_value[0].result : var.tunnel1_preshared_key
+    tunnel_2_preshared_key  = var.tunnel2_preshared_key== "" ? random_string.alpha_numeric_value[1].result : var.tunnel2_preshared_key
 }
 
 # ---------------------------------------------------------------------------------------------------------------
 # Generates random alphanueric string for the preshared keys
 # ---------------------------------------------------------------------------------------------------------------
 locals{
-    tunnel_inside_cidrs     = "${length(var.tunnel1_preshared_key) == 0 ? var.tunnel_cidrs : var.tunnel_inside_cidrs}"
+    tunnel_inside_cidrs     = length(var.tunnel_inside_cidrs) == 0 ? var.tunnel_cidrs : var.tunnel_inside_cidrs
 }
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -152,8 +152,9 @@ resource "aws_customer_gateway" "customer_gateway_1" {
 }
 
 resource "random_shuffle" "tunnel_cidr_ranges" {
-  input        = local.tunnel_inside_cidrs # var.tunnel_inside_cidrs
-  result_count = 2
+ count = var.shuffle == true ? 2 : 0
+  input        = local.tunnel_inside_cidrs
+  result_count = var.how_many_vpn_connections
 }
 
 resource "aws_vpn_connection" "aws_site_to_site_vpn_1" {
@@ -165,8 +166,8 @@ resource "aws_vpn_connection" "aws_site_to_site_vpn_1" {
     tunnel1_preshared_key                 = local.tunnel_1_preshared_key # var.tunnel1_preshared_key
     tunnel2_preshared_key                 = local.tunnel_2_preshared_key # var.tunnel2_preshared_key
     tunnel_inside_ip_version              = var.tunnel_inside_ip_version
-    tunnel1_inside_cidr                   = random_shuffle.tunnel_cidr_ranges.result[0]
-    tunnel2_inside_cidr                   = random_shuffle.tunnel_cidr_ranges.result[1]
+    tunnel1_inside_cidr                   = random_shuffle.tunnel_cidr_ranges[0].result[count.index]
+    tunnel2_inside_cidr                   = random_shuffle.tunnel_cidr_ranges[1].result[count.index]
     tunnel1_dpd_timeout_action            = var.tunnel1_dpd_timeout_action
     tunnel2_dpd_timeout_action            = var.tunnel2_dpd_timeout_action
     tunnel1_dpd_timeout_seconds           = var.tunnel1_dpd_timeout_seconds

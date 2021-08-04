@@ -5,8 +5,8 @@ data "aws_caller_identity" "first" {
   provider = aws.ohio
 }
 
-
 resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
+  # count = (var.network_manager_deployment==true ? 1:0)
   name = "lambda_tgw_globalnetwork_attach_policy"
   role = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach.id
 
@@ -31,7 +31,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
         }
       },
       {
-        "Action": ["networkmanager:*", "ec2:*", "cloudwatch:*"],
+        "Action": ["networkmanager:RegisterTransitGateway"],
         "Resource": "*",
         "Effect": "Allow",
         "Condition": {
@@ -46,6 +46,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
 
 
 resource "aws_iam_role" "iam_for_lambda_tgw_globalnetwork_attach" {
+  # count = (var.network_manager_deployment==true ? 1:0)
   name = "iam_for_lambda_tgw_globalnetwork_attach"
 
   assume_role_policy = <<EOF
@@ -66,6 +67,7 @@ EOF
 }
 
 data "archive_file" "zip"{
+  # count = (var.network_manager_deployment==true ? 1:0)
   type = "zip"
   source_file = "${path.module}/lambda_function.py"
   output_path = "${path.module}/lambda_function.zip"
@@ -74,6 +76,7 @@ data "archive_file" "zip"{
 resource "random_uuid" "uuid_lambda_spoke" { }
 
 resource "aws_lambda_function" "lambda_globalnetwork_tgw_attach" {
+  # count = (var.network_manager_deployment==true ? 1:0)
   filename      = data.archive_file.zip.output_path
   function_name = join("_", ["lambda-gn-tgw", random_uuid.uuid_lambda_spoke.result])
   role          = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach.arn
@@ -104,7 +107,6 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
     aws = aws.n_virginia
   }
 
-
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_virginia
   remote_site_public_ip = var.remote_site_public_ip.n_virginia # var.remote_site_public_ip.hq
   remote_site_asn = var.remote_site_asn.n_virginia             # var.remote_site_asn.hq
@@ -114,7 +116,7 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
   enable_acceleration                               = var.enable_acceleration.n_virginia
   tunnel1_preshared_key                             = var.tunnel1_preshared_key.n_virginia
   tunnel2_preshared_key                             = var.tunnel2_preshared_key.n_virginia
-  tunnel_inside_cidrs                                = var.tunnel_inside_cidrs.n_virginia
+  tunnel_inside_cidrs                               = var.tunnel_inside_cidrs.n_virginia
 
   tunnel_inside_ip_version                          = var.tunnel_inside_ip_version
   tunnel1_dpd_timeout_action                        = var.tunnel1_dpd_timeout_action
@@ -1499,7 +1501,6 @@ resource "aws_ec2_transit_gateway_peering_attachment_accepter" "transit_gateway_
   provider = aws.canada_east
   transit_gateway_attachment_id = module.terraform-aws-fsf-tgw-peering-regions-n_virginia-n-canada_east[0].transit_gateway_peering_attachment_id
 }
-
 
 ############################## AMERICAN NORTHWEST ##############################
 
