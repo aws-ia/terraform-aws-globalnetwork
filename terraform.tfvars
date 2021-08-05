@@ -2,7 +2,7 @@
 #  AWS Transit Gateway | ---> Creates AWS Transit Gateway route tables that are needed by the network deployer solution
 #-----------------------------------------------------------------------------------------------------------------------
 enable_integration_with_network_deployer_solution = {
-    ohio          = true
+    ohio          = false
     n_virginia    = false
     oregon        = false
     n_california  = false
@@ -129,7 +129,7 @@ network_manager_name = "transit-gateway-network-manager-stack"
 # Please update this variable if you have an AWS Network Manager deployed.
 # The full AWS ARN is required for your AWS Network Manager.
 # ----------------------------------------------------------------------------------------------------
-network_manager_id = "global-network-05240d427b8bc23a0" # "your-global-network-id-here"
+network_manager_id = "" # "your-global-network-id-here"
 
 
 
@@ -164,10 +164,10 @@ centralized_packet_inspection_enabled = {
 # Simply set true for the region in which you would like to deploy
 #-----------------------------------------------------------------------------------------------------
 create_site_to_site_vpn = {
-    ohio          = true
-    n_virginia    = true
-    oregon        = true
-    n_california  = true
+    ohio          = false
+    n_virginia    = false
+    oregon        = false
+    n_california  = false
     canada_east   = false
     ireland       = false
     london        = false
@@ -191,7 +191,7 @@ create_site_to_site_vpn = {
 # There's no need to specify true for individual regions if "all_aws_region" is set to true.
 #-----------------------------------------------------------------------------------------------------
 deploy_transit_gateway_in_this_aws_region = {
-    all_aws_regions                       = true  # false
+    all_aws_regions                       = false  # false
     ohio                                  = false # false
     n_virginia                            = false # false
     oregon                                = false # true
@@ -218,7 +218,7 @@ deploy_transit_gateway_in_this_aws_region = {
 # Set "build_complete_mesh" to true if you have set "all_aws_region" to true AND you would like to build a completely globally meshed transit gateway network.
 #-----------------------------------------------------------------------------------------------------
 transit_gateway_peering = {
-    build_complete_mesh           = true # false
+    build_complete_mesh           = false # false
     ohio_n_virginia               = false # true
     ohio_canada_east              = false # true
     ohio_oregon                   = false # true
@@ -297,10 +297,10 @@ remote_site_asn = {
 # -----------------------------------------------------------------------------------------------------
 remote_site_public_ip ={
     hq                                    = "127.0.0.1"
-    ohio                                  = "50.0.0.1"
-    n_virginia                            = "51.0.0.1"
-    oregon                                = "52.0.0.1"
-    n_california                          = "53.0.0.1"
+    ohio                                  = "127.0.0.1"
+    n_virginia                            = "127.0.0.1"
+    oregon                                = "127.0.0.1"
+    n_california                          = "127.0.0.1"
     canada_east                           = "127.0.0.1"
     ireland                               = "127.0.0.1"
     london                                = "127.0.0.1"
@@ -320,10 +320,10 @@ remote_site_public_ip ={
 # -----------------------------------------------------------------------------------------------------
 how_many_vpn_connections = {
     hq                                    = 0
-    ohio                                  = 10
-    n_virginia                            = 10
-    oregon                                = 10
-    n_california                          = 10
+    ohio                                  = 0
+    n_virginia                            = 0
+    oregon                                = 0
+    n_california                          = 0
     canada_east                           = 0
     ireland                               = 0
     london                                = 0
@@ -348,10 +348,10 @@ how_many_vpn_connections = {
 # Indicate whether to enable acceleration for the VPN connection. Supports only EC2 Transit Gateway.
 # -----------------------------------------------------------------------------------------------------
 enable_acceleration = {
-    ohio          = true
-    n_virginia    = true
-    oregon        = true
-    n_california  = true
+    ohio          = false
+    n_virginia    = false
+    oregon        = false
+    n_california  = false
     canada_east   = false
     ireland       = false
     london        = false
