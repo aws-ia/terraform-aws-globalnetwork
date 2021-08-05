@@ -1,3 +1,135 @@
+#-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | --->  Create Transit Gateway
+#-----------------------------------------------------------------------------------------------------
+# This variable controls the creation of a transit gateway in the region to the left.
+# Simply set true if you want to create or false if you dont want to create.
+# The option "all_aws_region" allows you to create a transit gateway in all AWS Region.
+# There's no need to specify true for individual regions if "all_aws_region" is set to true.
+#-----------------------------------------------------------------------------------------------------
+deploy_transit_gateway_in_this_aws_region = {
+    all_aws_regions                       = true # false
+    ohio                                  = false # false
+    n_virginia                            = false # false
+    oregon                                = false # true
+    n_california                          = false # true
+    canada_east                           = false # true
+    ireland                               = false # true
+    london                                = false # true
+    stockholm                             = false # true
+    frankfurt                             = false # true
+    paris                                 = false # true
+    tokyo                                 = false # true
+    seoul                                 = false # true
+    sydney                                = false # true
+    mumbai                                = false # true
+    singapore                             = false # true
+    sao-paulo                             = false # true
+}
+
+
+#-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | --->  Create Transit Gateway Peering Connection
+#-----------------------------------------------------------------------------------------------------
+# This variable controls the creation of a transit gateway peering between transit gateways deployed in different AWS Regions.
+# The option "build_complete_mesh" complements the "all_aws_region" in the variable "deploy_transit_gateway_in_this_aws_region"
+# Set "build_complete_mesh" to true if you have set "all_aws_region" to true AND you would like to build a completely globally meshed transit gateway network.
+#-----------------------------------------------------------------------------------------------------
+transit_gateway_peering = {
+    build_complete_mesh           = false # false
+    ohio_n_virginia               = false # true
+    ohio_canada_east              = false # true
+    ohio_oregon                   = false # true
+    ohio_n_california             = false # true
+    oregon_n_california           = false # true
+    oregon_canada_east            = false # true
+    oregon_n_virginia             = false # true
+    oregon_n_sao_paulo            = false # true
+    oregon_n_london               = false # true
+    # n_california_canada_east    = false # true
+    n_california_n_virginia       = false # true
+    n_virginia_canada_east        = false # true
+    n_virginia_n_london           = false # true
+    n_virginia_sao_paulo          = false # true
+    london_n_ireland              = false # true
+    london_n_paris                = false # true
+    london_n_frankfurt            = false # true
+    london_n_milan                = false # true
+    london_n_stockholm            = false # true
+    ireland_n_paris               = false # true
+    ireland_n_frankfurt           = false # true
+    ireland_n_stockholm           = false # true
+    frankfurt_n_stockholm         = false # true
+    frankfurt_n_paris             = false # true
+    stockholm_n_paris             = false # true
+    mumbai_n_frankfurt            = false # true
+    mumbai_n_sao_paulo            = false # true
+    mumbai_n_tokyo                = false # true
+    mumbai_n_seoul                = false # true
+    mumbai_n_singapore            = false # true
+    mumbai_n_sydney               = false # true
+    singapore_n_sydney            = false # true
+    singapore_n_tokyo             = false # true
+    singapore_n_sao_paulo         = false # true
+    singapore_n_seoul             = false # true
+    sydney_n_seoul                = false # true
+    sydney_n_tokyo                = false # true
+    sydney_n_sao_paulo            = false # true
+    tokyo_n_seoul                 = false # true
+    tokyo_n_sao_paulo             = false # true
+    paris_n_sao_paulo             = false # true
+}
+
+#-----------------------------------------------------------------------------------------------------
+# AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
+#-----------------------------------------------------------------------------------------------------
+ram_share_name = "shared_networking_resources"
+
+# -----------------------------------------------------------------------------------------------------
+#
+# -----------------------------------------------------------------------------------------------------
+dns_support = {
+    hq                                    = "disable"
+    ohio                                  = "disable"
+    n_virginia                            = "disable"
+    oregon                                = "disable"
+    n_california                          = "disable"
+    canada_east                           = "disable"
+    ireland                               = "disable"
+    london                                = "disable"
+    stockholm                             = "disable"
+    frankfurt                             = "disable"
+    paris                                 = "disable"
+    tokyo                                 = "disable"
+    seoul                                 = "disable"
+    sydney                                = "disable"
+    mumbai                                = "disable"
+    singapore                             = "disable"
+    sao_paulo                             = "disable"
+}
+
+
+#-----------------------------------------------------------------------------------------------------
+#  AWS Transit Gateway | ---> Create Network Manager
+#-----------------------------------------------------------------------------------------------------
+# This variables tells the solution if an AWS Network Manager exist (true) or not (false).
+#-----------------------------------------------------------------------------------------------------
+network_manager_deployment  = false
+
+#-----------------------------------------------------------------------------------------------------
+# This variables holds the name an AWS Network Manager
+#-----------------------------------------------------------------------------------------------------
+network_manager_name = "transit-gateway-network-manager-stack"
+
+# ----------------------------------------------------------------------------------------------------
+# Please update this variable if you have an AWS Network Manager deployed.
+# The full AWS ARN is required for your AWS Network Manager.
+# ----------------------------------------------------------------------------------------------------
+network_manager_id = "" # "your-global-network-id-here"
+
+# ----------------------------------------------------------------------------------------------------
+# TRANSIT GATEWAY ROUTE TABLE & ROUTING CONFIGURATIONS
+# ----------------------------------------------------------------------------------------------------
+
 #-----------------------------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Creates AWS Transit Gateway route tables that are needed by the network deployer solution
 #-----------------------------------------------------------------------------------------------------------------------
@@ -19,6 +151,8 @@ enable_integration_with_network_deployer_solution = {
     singapore     = false
     sao_paulo     = false
 }
+
+
 # -----------------------------------------------------------------------------------------------------
 #
 # -----------------------------------------------------------------------------------------------------
@@ -88,51 +222,6 @@ vpn_ecmp_support = {
     sao_paulo                             = "enable"
 }
 
-# -----------------------------------------------------------------------------------------------------
-#
-# -----------------------------------------------------------------------------------------------------
-dns_support = {
-    hq                                    = "disable"
-    ohio                                  = "disable"
-    n_virginia                            = "disable"
-    oregon                                = "disable"
-    n_california                          = "disable"
-    canada_east                           = "disable"
-    ireland                               = "disable"
-    london                                = "disable"
-    stockholm                             = "disable"
-    frankfurt                             = "disable"
-    paris                                 = "disable"
-    tokyo                                 = "disable"
-    seoul                                 = "disable"
-    sydney                                = "disable"
-    mumbai                                = "disable"
-    singapore                             = "disable"
-    sao_paulo                             = "disable"
-}
-
-
-#-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | ---> Create Network Manager
-#-----------------------------------------------------------------------------------------------------
-# This variables tells the solution if an AWS Network Manager exist (true) or not (false).
-#-----------------------------------------------------------------------------------------------------
-network_manager_deployment  = false
-
-#-----------------------------------------------------------------------------------------------------
-# This variables holds the name an AWS Network Manager
-#-----------------------------------------------------------------------------------------------------
-network_manager_name = "transit-gateway-network-manager-stack"
-
-
-# ----------------------------------------------------------------------------------------------------
-# Please update this variable if you have an AWS Network Manager deployed.
-# The full AWS ARN is required for your AWS Network Manager.
-# ----------------------------------------------------------------------------------------------------
-network_manager_id = "" # "your-global-network-id-here"
-
-
-
 #-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | ---> Manages VPN Attachment Association.
 #  True results in only the packet inspection table being populated with routes.
@@ -157,8 +246,12 @@ centralized_packet_inspection_enabled = {
     sao_paulo     = false
 }
 
-#-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | ---> AWS Site-to-Site
+
+
+# -----------------------------------------------------------------------------------------------------
+# TRANSIT GATEWAY VPN ATTACHMENT | AWS SITE TO SITE VPN CONFIGURATION
+# -----------------------------------------------------------------------------------------------------
+
 #-----------------------------------------------------------------------------------------------------
 # This variables map tells the solution if it should create an AWS Site-to-Site VPN and which region
 # Simply set true for the region in which you would like to deploy
@@ -181,92 +274,6 @@ create_site_to_site_vpn = {
     singapore     = false
     sao_paulo     = false
 }
-
-#-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | --->  Create Transit Gateway
-#-----------------------------------------------------------------------------------------------------
-# This variable controls the creation of a transit gateway in the region to the left.
-# Simply set true if you want to create or false if you dont want to create.
-# The option "all_aws_region" allows you to create a transit gateway in all AWS Region.
-# There's no need to specify true for individual regions if "all_aws_region" is set to true.
-#-----------------------------------------------------------------------------------------------------
-deploy_transit_gateway_in_this_aws_region = {
-    all_aws_regions                       = false # false
-    ohio                                  = false # false
-    n_virginia                            = false # false
-    oregon                                = false # true
-    n_california                          = false # true
-    canada_east                           = false # true
-    ireland                               = false # true
-    london                                = false # true
-    stockholm                             = false # true
-    frankfurt                             = false # true
-    paris                                 = false # true
-    tokyo                                 = false # true
-    seoul                                 = false # true
-    sydney                                = false # true
-    mumbai                                = false # true
-    singapore                             = false # true
-    sao-paulo                             = false # true
-}
-
-#-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | --->  Create Transit Gateway Peering Connection
-#-----------------------------------------------------------------------------------------------------
-# This variable controls the creation of a transit gateway peering between transit gateways deployed in different AWS Regions.
-# The option "build_complete_mesh" complements the "all_aws_region" in the variable "deploy_transit_gateway_in_this_aws_region"
-# Set "build_complete_mesh" to true if you have set "all_aws_region" to true AND you would like to build a completely globally meshed transit gateway network.
-#-----------------------------------------------------------------------------------------------------
-transit_gateway_peering = {
-    build_complete_mesh           = false # false
-    ohio_n_virginia               = false # true
-    ohio_canada_east              = false # true
-    ohio_oregon                   = false # true
-    ohio_n_california             = false # true
-    oregon_n_california           = false # true
-    oregon_canada_east            = false # true
-    oregon_n_virginia             = false # true
-    oregon_n_sao_paulo            = false # true
-    oregon_n_london               = false # true
-    # n_california_canada_east    = false # true
-    n_california_n_virginia       = false # true
-    n_virginia_canada_east        = false # true
-    n_virginia_n_london           = false # true
-    n_virginia_sao_paulo          = false # true
-    london_n_ireland              = false # true
-    london_n_paris                = false # true
-    london_n_frankfurt            = false # true
-    london_n_milan                = false # true
-    london_n_stockholm            = false # true
-    ireland_n_paris               = false # true
-    ireland_n_frankfurt           = false # true
-    ireland_n_stockholm           = false # true
-    frankfurt_n_stockholm         = false # true
-    frankfurt_n_paris             = false # true
-    stockholm_n_paris             = false # true
-    mumbai_n_frankfurt            = false # true
-    mumbai_n_sao_paulo            = false # true
-    mumbai_n_tokyo                = false # true
-    mumbai_n_seoul                = false # true
-    mumbai_n_singapore            = false # true
-    mumbai_n_sydney               = false # true
-    singapore_n_sydney            = false # true
-    singapore_n_tokyo             = false # true
-    singapore_n_sao_paulo         = false # true
-    singapore_n_seoul             = false # true
-    sydney_n_seoul                = false # true
-    sydney_n_tokyo                = false # true
-    sydney_n_sao_paulo            = false # true
-    tokyo_n_seoul                 = false # true
-    tokyo_n_sao_paulo             = false # true
-    paris_n_sao_paulo             = false # true
-}
-
-
-#-----------------------------------------------------------------------------------------------------
-# AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
-#-----------------------------------------------------------------------------------------------------
-ram_share_name = "shared_networking_resources"
 
 
 # -----------------------------------------------------------------------------------------------------
@@ -340,9 +347,7 @@ how_many_vpn_connections = {
 
 
 
-# -----------------------------------------------------------------------------------------------------
-# Advance VPN Configuration
-# -----------------------------------------------------------------------------------------------------
+
 
 # -----------------------------------------------------------------------------------------------------
 # Indicate whether to enable acceleration for the VPN connection. Supports only EC2 Transit Gateway.
@@ -365,6 +370,11 @@ enable_acceleration = {
     singapore     = false
     sao_paulo     = false
 }
+
+
+# -----------------------------------------------------------------------------------------------------
+# ADVANCE IPSEC TUNNEL CONFIGURATIONS | ADD YOUR CUSTOM TUNNEL & ENCRYPTION CONFIGURATION BELOW
+# -----------------------------------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------------------------------
 # Indicate whether the VPN tunnels process IPv4 or IPv6 traffic. Valid values are ipv4 | ipv6.
