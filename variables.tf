@@ -212,7 +212,7 @@ variable "deploy_transit_gateway_in_this_aws_region" {
   type = map(bool)
   default = {
     all_aws_regions                       = false # true
-    ohio                                  = true # false
+    ohio                                  = false # false
     n_virginia                            = false # false
     oregon                                = false # true
     n_california                          = false # true

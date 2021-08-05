@@ -6,9 +6,9 @@ data "aws_caller_identity" "first" {
 }
 
 resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
-  # count = (var.network_manager_deployment==true ? 1:0)
+  count = (var.network_manager_deployment==true ? 1:0)
   name = "lambda_tgw_globalnetwork_attach_policy"
-  role = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach.id
+  role = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach[0].id
 
   # Terraform "jsonencode" function converts a Terraform expression result to valid JSON syntax.
   # IAM Policy Statement
@@ -32,7 +32,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
       },
       {
         "Action": ["networkmanager:RegisterTransitGateway"],
-        "Resource": "*",
+        "Resource": "arn:aws:networkmanager::${data.aws_caller_identity.first.account_id}:global-network/${var.network_manager_id}",
         "Effect": "Allow",
         "Condition": {
           "StringEquals": {
@@ -46,7 +46,7 @@ resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
 
 
 resource "aws_iam_role" "iam_for_lambda_tgw_globalnetwork_attach" {
-  # count = (var.network_manager_deployment==true ? 1:0)
+  count = (var.network_manager_deployment==true ? 1:0)
   name = "iam_for_lambda_tgw_globalnetwork_attach"
 
   assume_role_policy = <<EOF
@@ -67,7 +67,6 @@ EOF
 }
 
 data "archive_file" "zip"{
-  # count = (var.network_manager_deployment==true ? 1:0)
   type = "zip"
   source_file = "${path.module}/lambda_function.py"
   output_path = "${path.module}/lambda_function.zip"
@@ -76,10 +75,10 @@ data "archive_file" "zip"{
 resource "random_uuid" "uuid_lambda_spoke" { }
 
 resource "aws_lambda_function" "lambda_globalnetwork_tgw_attach" {
-  # count = (var.network_manager_deployment==true ? 1:0)
+  count = (var.network_manager_deployment==true ? 1:0)
   filename      = data.archive_file.zip.output_path
   function_name = join("_", ["lambda-gn-tgw", random_uuid.uuid_lambda_spoke.result])
-  role          = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach.arn
+  role          = aws_iam_role.iam_for_lambda_tgw_globalnetwork_attach[0].arn
   handler       = "lambda_function.lambda_handler"
   runtime = "python3.8"
   timeout          = 900
@@ -103,9 +102,7 @@ resource "aws_lambda_function" "lambda_globalnetwork_tgw_attach" {
 module "terraform-aws-fsf-tgw-deployment-n_virginia" {
   source = "./create_transit_gateway"
   count = ((var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.deploy_transit_gateway_in_this_aws_region.n_virginia == true) ? 1:0)
-  providers = {
-    aws = aws.n_virginia
-  }
+  providers = {aws = aws.n_virginia}
 
   create_site_to_site_vpn = var.create_site_to_site_vpn.n_virginia
   remote_site_public_ip = var.remote_site_public_ip.n_virginia # var.remote_site_public_ip.hq
@@ -171,7 +168,7 @@ module "terraform-aws-fsf-tgw-deployment-n_virginia" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-n_virginia" {
   count = ((var.network_manager_deployment==true &&  var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.n_virginia == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-n_virginia[0].transit_gateway_arn}"
@@ -251,7 +248,7 @@ module "terraform-aws-fsf-tgw-deployment-ohio" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-ohio" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.ohio == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-ohio[0].transit_gateway_arn}"
@@ -332,7 +329,7 @@ module "terraform-aws-fsf-tgw-deployment-n_california" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-n_california" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.n_california == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-n_california[0].transit_gateway_arn}"
@@ -413,7 +410,7 @@ module "terraform-aws-fsf-tgw-deployment-oregon" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-oregon" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.oregon == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-oregon[0].transit_gateway_arn}"
@@ -494,7 +491,7 @@ module "terraform-aws-fsf-tgw-deployment-canada-montreal" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-canada-montreal" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.canada_east == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-canada-montreal[0].transit_gateway_arn}"
@@ -576,7 +573,7 @@ module "terraform-aws-fsf-tgw-deployment-mumbai" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-mumbai" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.mumbai == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-mumbai[0].transit_gateway_arn}"
@@ -656,7 +653,7 @@ module "terraform-aws-fsf-tgw-deployment-seoul" {
 }
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-seoul" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.seoul == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-seoul[0].transit_gateway_arn}"
@@ -736,7 +733,7 @@ module "terraform-aws-fsf-tgw-deployment-singapore" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-singapore" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.singapore == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-singapore[0].transit_gateway_arn}"
@@ -816,7 +813,7 @@ module "terraform-aws-fsf-tgw-deployment-sydney" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-sydney" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.sydney == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-sydney[0].transit_gateway_arn}"
@@ -895,7 +892,7 @@ module "terraform-aws-fsf-tgw-deployment-tokyo" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-tokyo" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.tokyo == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-tokyo[0].transit_gateway_arn}"
@@ -974,7 +971,7 @@ module "terraform-aws-fsf-tgw-deployment-frankfurt" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-frankfurt" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.frankfurt == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-frankfurt[0].transit_gateway_arn}"
@@ -1053,7 +1050,7 @@ module "terraform-aws-fsf-tgw-deployment-ireland" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-ireland" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.ireland == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-ireland[0].transit_gateway_arn}"
@@ -1132,7 +1129,7 @@ module "terraform-aws-fsf-tgw-deployment-london" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-london" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.london == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-london[0].transit_gateway_arn}"
@@ -1211,7 +1208,7 @@ module "terraform-aws-fsf-tgw-deployment-paris" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-paris" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.paris == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-paris[0].transit_gateway_arn}"
@@ -1290,7 +1287,7 @@ module "terraform-aws-fsf-tgw-deployment-stockholm" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-stockholm" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.stockholm == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-stockholm[0].transit_gateway_arn}"
@@ -1370,7 +1367,7 @@ module "terraform-aws-fsf-tgw-deployment-sao-paulo" {
 
 data "aws_lambda_invocation" "tgw-globalnetwork-attach-sao-paulo" {
   count = ((var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.all_aws_regions == true) || (var.network_manager_deployment==true && var.deploy_transit_gateway_in_this_aws_region.sao-paulo == true) ? 1:0)
-  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach.function_name
+  function_name = aws_lambda_function.lambda_globalnetwork_tgw_attach[0].function_name
   input = <<JSON
   {
     "tgw_arn": "${module.terraform-aws-fsf-tgw-deployment-sao-paulo[0].transit_gateway_arn}"
@@ -1380,7 +1377,7 @@ data "aws_lambda_invocation" "tgw-globalnetwork-attach-sao-paulo" {
 
 
 #-----------------------------------------------------------------------------------------------------
-#  AWS Transit Gateway | ---> PEERS TRANSIT GATEWAYS  
+#  AWS Transit Gateway | ---> PEERS TRANSIT GATEWAYS
 #-----------------------------------------------------------------------------------------------------
 
 # PEERING : OHIO & NORTHERN VIRGINIA

@@ -191,7 +191,7 @@ create_site_to_site_vpn = {
 # There's no need to specify true for individual regions if "all_aws_region" is set to true.
 #-----------------------------------------------------------------------------------------------------
 deploy_transit_gateway_in_this_aws_region = {
-    all_aws_regions                       = false  # false
+    all_aws_regions                       = false # false
     ohio                                  = false # false
     n_virginia                            = false # false
     oregon                                = false # true
