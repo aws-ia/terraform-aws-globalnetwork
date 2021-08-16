@@ -3,13 +3,9 @@
 # -----------------------------------------------------------------------------------------------------
 output "transit_gateway_owner_id" {
   value = data.aws_caller_identity.first.account_id 
-  # module.terraform-aws-fsf-tgw-deployment-n_virginia.transit_gateway_owner_id
-}
-
-output "network_manager_id"{
-  value = data.aws_cloudformation_stack.network-manager-id.outputs["GlobalNetworkId"]
 
 }
+
 # -----------------------------------------------------------------------------------------------------
 # AWS Transit Gateway ID per AWS Region 
 # -----------------------------------------------------------------------------------------------------

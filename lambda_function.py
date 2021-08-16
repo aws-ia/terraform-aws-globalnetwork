@@ -22,7 +22,6 @@ def lambda_handler(event, context):
            GlobalNetworkId=globalnetwork_id,
            TransitGatewayArn=tgw_arn
            )
-        print("Log: Registation success")   
     except: 
         #This will happen when running terraform destroy since the lambda is trigger again for the already registered TGW.
         response = {"errorMessage": tgw_arn+"  has already been registered or is in the process of being registered/deregistered."}
