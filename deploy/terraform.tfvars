@@ -1,4 +1,14 @@
 #-----------------------------------------------------------------------------------------------------
+# MANDATORY CONFIGURATION !!!!!!!
+#-----------------------------------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------------------------------
+# AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
+#-----------------------------------------------------------------------------------------------------
+ram_share_name = "shared_networking_resources"
+
+
+#-----------------------------------------------------------------------------------------------------
 #  AWS Transit Gateway | --->  Create Transit Gateway
 #-----------------------------------------------------------------------------------------------------
 # This variable controls the creation of a transit gateway in the region to the left.
@@ -7,8 +17,8 @@
 # There's no need to specify true for individual regions if "all_aws_region" is set to true.
 #-----------------------------------------------------------------------------------------------------
 deploy_transit_gateway_in_this_aws_region = {
-    all_aws_regions                       = true # false
-    ohio                                  = false # false
+    all_aws_regions                       = false # false
+    ohio                                  = true # false
     n_virginia                            = false # false
     oregon                                = false # true
     n_california                          = false # true
@@ -79,14 +89,11 @@ transit_gateway_peering = {
     paris_n_sao_paulo             = false # true
 }
 
-#-----------------------------------------------------------------------------------------------------
-# AWS Transit Gateway | ---> Transit Gateway Configuration Parameter
-#-----------------------------------------------------------------------------------------------------
-ram_share_name = "shared_networking_resources"
 
 # -----------------------------------------------------------------------------------------------------
-#
+# OPTIONAL CONFIGURATIONS !!!!!!!
 # -----------------------------------------------------------------------------------------------------
+
 dns_support = {
     hq                                    = "disable"
     ohio                                  = "disable"
@@ -113,7 +120,7 @@ dns_support = {
 #-----------------------------------------------------------------------------------------------------
 # This variables tells the solution if an AWS Network Manager exist (true) or not (false).
 #-----------------------------------------------------------------------------------------------------
-network_manager_deployment  = false
+network_manager_deployment  = true
 
 #-----------------------------------------------------------------------------------------------------
 # This variables holds the name an AWS Network Manager
@@ -134,7 +141,7 @@ network_manager_id = "" # "your-global-network-id-here"
 #  AWS Transit Gateway | ---> Creates AWS Transit Gateway route tables that are needed by the network deployer solution
 #-----------------------------------------------------------------------------------------------------------------------
 enable_integration_with_network_deployer_solution = {
-    ohio          = false
+    ohio          = true
     n_virginia    = false
     oregon        = false
     n_california  = false
@@ -257,13 +264,13 @@ centralized_packet_inspection_enabled = {
 # Simply set true for the region in which you would like to deploy
 #-----------------------------------------------------------------------------------------------------
 create_site_to_site_vpn = {
-    ohio          = false
+    ohio          = true
     n_virginia    = false
     oregon        = false
     n_california  = false
     canada_east   = false
     ireland       = false
-    london        = false
+    london        = true
     stockholm     = false
     frankfurt     = false
     paris         = false
@@ -304,13 +311,13 @@ remote_site_asn = {
 # -----------------------------------------------------------------------------------------------------
 remote_site_public_ip ={
     hq                                    = "127.0.0.1"
-    ohio                                  = "127.0.0.1"
+    ohio                                  = "50.0.0.1"
     n_virginia                            = "127.0.0.1"
     oregon                                = "127.0.0.1"
     n_california                          = "127.0.0.1"
     canada_east                           = "127.0.0.1"
     ireland                               = "127.0.0.1"
-    london                                = "127.0.0.1"
+    london                                = "51.0.0.1"
     stockholm                             = "127.0.0.1"
     frankfurt                             = "127.0.0.1"
     paris                                 = "127.0.0.1"
@@ -372,9 +379,10 @@ enable_acceleration = {
 }
 
 
-# -----------------------------------------------------------------------------------------------------
-# ADVANCE IPSEC TUNNEL CONFIGURATIONS | ADD YOUR CUSTOM TUNNEL & ENCRYPTION CONFIGURATION BELOW
-# -----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
+# ADVANCE IPSEC TUNNEL CONFIGURATIONS | ADD YOUR CUSTOM TUNNEL & ENCRYPTION CONFIGURATION BELOW (OPTIONAL)
+# ---------------------------------------------------------------------------------------------------------eiifccugvfevjkvndrhrftbervbvugffjfhdldrdhbvi
+
 
 # -----------------------------------------------------------------------------------------------------
 # Indicate whether the VPN tunnels process IPv4 or IPv6 traffic. Valid values are ipv4 | ipv6.
