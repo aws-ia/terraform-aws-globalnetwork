@@ -5,6 +5,8 @@ data "aws_caller_identity" "first" {
   provider = aws.ohio
 }
 
+data "aws_partition" "aws_partition" {}
+
 resource "aws_iam_role_policy" "lambda_tgw_globalnetwork_attach_policy" {
   count = (var.network_manager_deployment==true ? 1:0)
   name = "lambda_tgw_globalnetwork_attach_policy"
