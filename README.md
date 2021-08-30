@@ -40,9 +40,9 @@ This solution contains a set of opinionated Terraform modules that deploy and au
 
 -   **Globally meshed network of transit gateways**—Deploys a transit gateway in each AWS Region and sets up peering connections between them.
 
-Regardless of the configuration you choose, each transit gateway deployed comes with the following components:
+Regardless of the configuration you choose, each transit gateway that is deployed features the following components:
 
-- **Six AWS Transit Gateway Route Tables (These are not optional)**
+- Six AWS Transit Gateway route tables (not optional)
     - Development (DEV) Route Table 
     - User Acceptance Testing (UAT) Route Table 
     - Production (PROD) Route Table 
