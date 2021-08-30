@@ -1,5 +1,5 @@
 # Terraform AWS Global Network
-Terraform AWS Global Network is a system primarily written in Terraform that you use to deploy and automate the configuration of a transitive network on the AWS Cloud. You can deploy a single transit gateway in one AWS Region, multiple gateways in multiple Regions, or a globally meshed network of gateways in every Region. For more information about the configurations available and the system's components, see [Terraform AWS Global Network Configuration Guide](CONFIGURATION-GUIDE.md), also in this repository.
+Terraform AWS Global Network is a system primarily written in Terraform that you use to deploy and automate the configuration of a transitive network on the AWS Cloud. You can deploy a single transit gateway in one AWS Region, multiple gateways in multiple Regions, or a globally meshed network of gateways in every Region. For more information about the configurations available and the system's components, see [README.md](README.md), also in this repository.
 
 Author: [Androski Spicer](mailto:androsks@amazon.com)
 
