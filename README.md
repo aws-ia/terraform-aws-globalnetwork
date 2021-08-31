@@ -21,46 +21,28 @@ Last Updated: July 2021
 
 5. [The AWS Transit Gateway Repository and modules](#the-aws-transit-gateway-repository-and-modules)
 
-6. [Implementation Guide ](#implementation-guide)
+6. [Implementation Guide](#implementation-guide)
 
 7. [Conclusion](#conclusion)
 
 # About This Document
 
-This document serves to introduce and discuss an opinionated transitive solution that enables customers to deploy multiple configurations of AWS Transit Gateways. 
-These configurations range from the implementation of a single transit gateway to a globally meshed network of transit gateways that are managed by AWS Network Manager. 
+This document explains the components of an opinionated transitive solution you can use to deploy multiple configurations of AWS Transit Gateway. For deployment instructions, see CONFIGURURATION-GUIDE.md, also in this repository. 
 
 
 # Overview
 
-This solution provides customers with a set of opinionated Terraform modules that deploys and automates the
-configuration of one or more AWS Transit Gateway(s). 
+This solution contains a set of opinionated Terraform modules that deploy and automate the configuration of one or more transit gateways. The variables.tf file in this repository contains a set of boolean maps that you can customize to deploy one of the following configurations:
 
-Today, this solution supports three key architecture types;
+-  **A single transit gateway with or without AWS Site-to-Site VPN**—Deploys a single transit gateway and shares it throughout your AWS organization.
 
--   **A Single Transit Gateway with/without AWS Site to Site VPN(s)**
+-  **Multiple transit gateways deployed across multiple AWS Regions**—Deploys a transit gateway in multiple AWS Regions. You can choose to peer the gateways and route traffic between them.
 
-    -   This option deploys a single transit gateway and shares it throughout the customer AWS Organization
+-   **Globally meshed network of transit gateways**—Deploys a transit gateway in each AWS Region and sets up peering connections between them.
 
--   **Multiple Transit Gateways Deployed Across Multiple AWS Regions**
+Regardless of the configuration you choose, each transit gateway that is deployed features the following components:
 
-    -   This option creates an AWS Transit Gateway in multiple AWS Regions
-    -   Customers can enable a transit gateway peer between both AWS Transit Gateways
-
--   **Globally Meshed Network of AWS Transit Gateways**
-
-    -   This deployment option deploys an AWS Transit Gateway in each AWS Region and establishes a
-        transit gateway peering connection between all transit gateways deployed by this solution. 
-
-Within the variables.tf file is a set of boolean maps that customers can tune to deploy any of the above configuration type.
-These controls make it easy for a customer to go from no transit gateway to a globally meshed network of AWS Transit Gateways with IPSec VPN termination and automatic VPN attachment route propagation. 
-
-The solution presented is highly opinionated. Within this opinion is room for a customer to achieve the desired configuration as along as the feature is available within this solution.
-That said, with this solution comes with a set of custom items. They are as followed:
-
-Each AWS Transit Gateway deployed by this solution comes with the following
-
-- **Six AWS Transit Gateway Route Tables (These are not optional)**
+- Six AWS Transit Gateway route tables (not optional)
     - Development (DEV) Route Table 
     - User Acceptance Testing (UAT) Route Table 
     - Production (PROD) Route Table 

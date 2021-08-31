@@ -1,40 +1,51 @@
-To deploy the Terraform AWS Globally Meshed Network of Transit Gateways, you will need to do the following:
+# Terraform AWS Global Network
+Terraform AWS Global Network is a system primarily written in Terraform that you use to deploy and automate the configuration of a transitive network on the AWS Cloud. You can deploy a single transit gateway in one AWS Region, multiple gateways in multiple Regions, or a globally meshed network of gateways in every Region. For more information about the configurations available and the system's components, see [README.md](README.md), also in this repository.
 
-1. Install Terraform. For instructions and a video tutorial, see [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli). 
+Author: [Androski Spicer](mailto:androsks@amazon.com)
 
-2. Sign up and log into Terraform Cloud. (There is a free tier available.)
+## Deploy Terraform AWS Global Network
 
-3. Configure Terraform Cloud API access. Run the following to generate a Terraform Cloud token from the command line interface:
-```
-terraform login
+1. Install Terraform. See [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) for a tutorial. 
+2. Sign up and log into [Terraform Cloud](https://app.terraform.io/signup/account). There is a free tier available.
+3. Generate a Terraform Cloud token.<br>
 
---For Mac/Linux
-export TERRAFORM_CONFIG="$HOME/.terraform.d/credentials.tfrc.json"
+   `terraform login`
 
---For Windows
-export TERRAFORM_CONFIG="$HOME/AppData/Roaming/terraform.d/credentials.tfrc.json"
-```
+4. Export the `TERRAFORM_CONFIG` variable.<br>
+   *  Mac/Linux
+   
+      `export TERRAFORM_CONFIG="$HOME/.terraform.d/credentials.tfrc.json"`
 
-4. Configure the AWS Command Line Interface (AWS CLI). For more information, see [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html).
+   *  Windows
+   
+      `export TERRAFORM_CONFIG="$HOME/AppData/Roaming/terraform.d/credentials.tfrc.json"`
 
-5. If you don't have git installed, [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). 
+5. Configure the AWS Command Line Interface (AWS CLI). For more information, see [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html).
 
-6. Clone this **aws-ia/terraform-aws-globalnetwork-1** repository using the following command:
+6. If you don't have git installed, [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). 
+
+7. Clone the **aws-ia/terraform-aws-globalnetwork-1** repository.
 
    `git clone https://github.com/aws-ia/terraform-aws-globalnetwork-1.git`
 
-7. Change directory to the root repository directory.
+8. Change to the module root directory.
 
    `cd terraform-aws-globalnetwork-1/`
 
-8. For setting up a new terraform workspace:
+9. Set up your Terraform cloud workspace.<br>
    
-      - `cd setup_workspace`
-      - `terraform init`
-      - `terraform apply`
+   `cd setup_workspace`<br>
+   `terraform init`<br>
+   `terraform apply`<br>
+   
+10. Change to the **deploy** directory.<br>
+   
+    `cd ../deploy`
 
-9. To create deploy the solution:
-      - Change to the deploy directory. Run `cd ../deploy`
-      - Initialize the deploy directory. Run `terraform init`.
-      - Start a Terraform run using the configuration files in your deploy directory. Run `terraform apply`  or `terraform apply -var-file="$HOME/.aws/terraform.tfvars"` (Note: The deployment is remotely run in Terraform Cloud)
- 
+11. Initialize the **deploy** directory.
+
+    `terraform init`.
+   
+12. Run `terraform apply`  or `terraform apply -var-file="$HOME/.aws/terraform.tfvars"`
+
+   **Note:** `terraform apply` runs remotely in the Terraform Cloud.
